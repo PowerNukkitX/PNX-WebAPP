@@ -49,7 +49,7 @@ jobs:
           accessKeySecret: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
           bucket: pnx-index
           endpoint: oss-cn-hongkong.aliyuncs.com
-          folder: Index/src/web
+          folder: Index/src/main/web
           skipSetting: true
 
       - name: 输出上传内容
