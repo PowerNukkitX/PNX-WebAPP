@@ -1,6 +1,18 @@
 [
   {
     "type": "news",
+    "link": "https://github.com/Superice666/BedrockGel",
+    "title": {
+      "zh-cn": "在PNX上体验光圈科技的凝胶跑酷",
+      "en-us": "Experience gel parkour on PNX"
+    },
+    "content": {
+      "zh-cn": "BedrockGel模组把光圈科技的凝胶带到PNX中",
+      "en-us": "BedrockGel mod brings the gel by Aperture Science to PNX"
+    }
+  },
+  {
+    "type": "news",
     "link": "https://github.com/PowerNukkitX/PowerNukkitX/releases/tag/1.19.50-r3",
     "title": {
       "zh-cn": "PNX 1.19.50-r3 新版本发布",
