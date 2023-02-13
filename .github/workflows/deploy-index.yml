@@ -42,7 +42,7 @@ jobs:
           name: doc_zh-cn
           path: Index/src/main/web
 
-      - name: 部署PNX主页
+      - name: 部署PNX主页到阿里云
         uses: fangbinwei/aliyun-oss-website-action@v1
         with:
           accessKeyId: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
@@ -51,6 +51,9 @@ jobs:
           endpoint: oss-cn-hongkong.aliyuncs.com
           folder: Index/src/main/web
           skipSetting: true
+
+      - name: 部署到PNX云
+        run: bash .github/scripts/deploy-static.sh ${{ secrets.PNX_CLOUD_TOKEN }}
 
       - name: 输出上传内容
         run: echo ${{ steps.upload-oss.outputs.url }}
