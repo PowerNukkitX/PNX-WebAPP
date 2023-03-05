@@ -2,3 +2,4 @@
 **/*.iml
 **/.gradle/
 **/build/
+/APP/.parcel-cache/

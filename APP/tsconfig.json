@@ -1,0 +1,21 @@
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		// "strict": true,
+		"noEmit": true,
+		"moduleResolution": "node",
+		"target": "ESNext",
+		"module": "esnext",
+		"resolveJsonModule": true,
+		"allowSyntheticDefaultImports": true,
+		"downlevelIteration": true,
+		"experimentalDecorators": true,
+		"jsx": "preserve"
+	},
+	"include": ["node_modules/wmr/types.d.ts", "**/*", "public"],
+	"typeAcquisition": {
+		"enable": true
+	}
+}

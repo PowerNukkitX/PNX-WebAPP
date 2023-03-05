@@ -1,0 +1,28 @@
+html,
+body {
+	margin: 0;
+	min-height: 100%;
+	font-family: system-ui, sans-serif;
+}
+
+.icon-title {
+	font-weight: bold;
+	margin-top: -12px;
+	min-width: 33px;
+}
+
+.icon-title .icon-title-main {
+	padding-bottom: 4px;
+	border-bottom: 4px solid white;
+}
+
+.icon-title .icon-title-space {
+	width: 1px;
+}
+
+.icon-title .icon-title-sup {
+	font-size: 16px;
+	position: absolute;
+	margin-top: -3px;
+	margin-left: 1px;
+}

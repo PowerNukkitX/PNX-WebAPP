@@ -1,0 +1,31 @@
+{
+  "private": true,
+  "browserslist": [
+    "> 0.5%, last 2 versions, not dead"
+  ],
+  "scripts": {
+    "start": "parcel public/index.html ",
+    "build": "parcel build public/index.html"
+  },
+  "eslintConfig": {
+    "extends": "preact"
+  },
+  "dependencies": {
+    "mdui": "^1.0.2",
+    "preact": "^10.13.0",
+    "preact-iso": "^2.3.1"
+  },
+  "devDependencies": {
+    "@parcel/transformer-inline-string": "^2.8.3",
+    "parcel": "^2.8.3"
+  },
+  "alias": {
+    "react": "preact/compat",
+    "react-dom/test-utils": "preact/test-utils",
+    "react-dom": "preact/compat",
+    "react/jsx-runtime": "preact/jsx-runtime",
+    "mdui": {
+      "global": "mdui"
+    }
+  }
+}

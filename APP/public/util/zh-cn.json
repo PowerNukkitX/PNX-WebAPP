@@ -1,0 +1,13 @@
+{
+  "download": "下载",
+  "switch-to-day": "切换到白天模式",
+  "switch-to-night": "切换到黑夜模式",
+  "ok": "确定",
+  "switch-theme": "切换主题",
+
+  "page-gone": "啊哦，页面不见了 :(",
+
+  "route:/": "首页",
+  "route:/about": "关于我们",
+  "route:/more": "查看更多"
+}

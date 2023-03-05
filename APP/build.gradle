@@ -1,0 +1,12 @@
+plugins {
+    id "com.github.node-gradle.node" version "3.5.1"
+}
+
+group 'cn.powernukkitx'
+version '0.0.1'
+
+//noinspection ConfigurationAvoidance
+task installExpress(type: NpmTask) {
+    dependsOn('npmInstall')
+    args = ['run', 'build']
+}
