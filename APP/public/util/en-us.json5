@@ -1,0 +1,22 @@
+{
+  "download": "Download",
+  "switch-to-day": "Switch to day-mode",
+  "switch-to-night": "Switch to night-mode",
+  "ok": "OK",
+  "switch-theme": "Switch theme",
+
+  "page-gone": "Oops, this page is gone :(",
+
+  "route:/": "Home",
+  "route:/about": "About Us",
+  "route:/more": "See more",
+  "route:/plugin": "Plugin Hub",
+  // 关于我们
+  "about-us": "About us",
+  "pnx-team": "We are PNX dev team, PNX, which has a full name of PowerNukkitX,\
+      | is an open source server software based on NukkitX, \
+      | and we are committed to providing better experience for Minecraft: Bedrock Edition players.\
+      | Our members are mainly from China, but also all over the world.\
+      | We hope to build PNX as one of the best server software of the bedrock version,\
+      | and we hope to build PNX as the next generation development platform of Minecraft:Bedrock."
+}

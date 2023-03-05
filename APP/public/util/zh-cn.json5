@@ -1,0 +1,19 @@
+{
+  "download": "下载",
+  "switch-to-day": "切换到白天模式",
+  "switch-to-night": "切换到黑夜模式",
+  "ok": "确定",
+  "switch-theme": "切换主题",
+  // 404页
+  "page-gone": "啊哦，页面不见了 :(",
+  // 路由
+  "route:/": "首页",
+  "route:/about": "关于我们",
+  "route:/more": "查看更多",
+  "route:/plugin": "插件大厅",
+  // 关于我们
+  "about-us": "关于我们",
+  "pnx-team": "我们是PNX开发团队，PNX，全称PowerNukkitX，是一个基于NukkitX的开源服务器软件，我们致力于为Minecraft: Bedrock Edition玩家提供更好的体验。\
+      |我们的成员主要来自中国，同时也遍布世界各地。\
+      |我们希望能够将PNX打造为基岩版最好的服务端软件之一，希望能够将PNX打造为下一代基岩版开发平台。",
+}
