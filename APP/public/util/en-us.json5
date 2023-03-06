@@ -11,12 +11,14 @@
   "route:/about": "About Us",
   "route:/more": "See more",
   "route:/plugin": "Plugin Hub",
-  // 关于我们
+  // About Us
   "about-us": "About us",
   "pnx-team": "We are PNX dev team, PNX, which has a full name of PowerNukkitX,\
       | is an open source server software based on NukkitX, \
       | and we are committed to providing better experience for Minecraft: Bedrock Edition players.\
       | Our members are mainly from China, but also all over the world.\
       | We hope to build PNX as one of the best server software of the bedrock version,\
-      | and we hope to build PNX as the next generation development platform of Minecraft:Bedrock."
+      | and we hope to build PNX as the next generation development platform of Minecraft:Bedrock.",
+  // Plugin Hub
+  "this-plugin-has-no-description": "This plugin has no description.",
 }

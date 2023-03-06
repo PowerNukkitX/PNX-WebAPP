@@ -3,6 +3,7 @@ import Home from './pages/home';
 import NotFound from './pages/_404';
 import About from "./pages/about";
 import HeadBar from './components/headbar';
+import PluginHub from "./pages/plugin";
 
 export function App() {
     return (
@@ -13,6 +14,7 @@ export function App() {
                     <Router>
                         <Route path="/" component={Home}/>
                         <Route path="/about" component={About}/>
+                        <Route path="/plugin" component={PluginHub}/>
                         <Route default component={NotFound}/>
                     </Router>
                 </ErrorBoundary>

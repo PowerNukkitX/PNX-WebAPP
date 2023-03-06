@@ -1,3 +1,4 @@
+// @ts-ignore
 import home from './style.module.css';
 import {useState} from 'preact/hooks';
 
