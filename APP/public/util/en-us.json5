@@ -4,13 +4,13 @@
   "switch-to-night": "Switch to night-mode",
   "ok": "OK",
   "switch-theme": "Switch theme",
-
   "page-gone": "Oops, this page is gone :(",
-
   "route:/": "Home",
   "route:/about": "About Us",
   "route:/more": "See more",
   "route:/plugin": "Plugin Hub",
+  "route:/plugin/": "Plugin Hub",
+  "route:/plugin/hub": "Plugin Hub",
   // About Us
   "about-us": "About us",
   "pnx-team": "We are PNX dev team, PNX, which has a full name of PowerNukkitX,\
@@ -30,4 +30,5 @@
   "star-count": "Stars",
   "last-update-at": "Last update at",
   "see-on-gh": "See on GitHub",
+  "plugin-hub": "Plugin Hub"
 }

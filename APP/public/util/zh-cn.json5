@@ -11,6 +11,8 @@
   "route:/about": "关于我们",
   "route:/more": "查看更多",
   "route:/plugin": "插件大厅",
+  "route:/plugin/": "插件大厅",
+  "route:/plugin/hub": "插件大厅",
   // 关于我们
   "about-us": "关于我们",
   "pnx-team": "我们是PNX开发团队，PNX，全称PowerNukkitX，是一个基于NukkitX的开源服务器软件，我们致力于为Minecraft: Bedrock Edition玩家提供更好的体验。\
@@ -27,4 +29,5 @@
   "star-count": "星标数量",
   "last-update-at": "最后更新于",
   "see-on-gh": "在GitHub上查看",
+  "plugin-hub": "插件大厅",
 }
