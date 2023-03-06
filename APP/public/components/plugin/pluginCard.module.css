@@ -1,3 +1,9 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
 .languageLabel {
     margin-left: 8px;
     font-size: 14px;
@@ -8,9 +14,14 @@
     font-size: 14px;
 }
 
+.timeLabel {
+    margin-left: 4px;
+    font-size: 14px;
+}
+
 .languageDot {
-    width: 8px;
-    height: 8px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     margin-left: 8px;
 }
@@ -18,10 +29,20 @@
 .starIcon {
     font-size: 20px;
     margin-left: 12px;
-    color: rgba(0,0,0,.54);
+    opacity: 0.54;
+}
+
+.timeIcon {
+    font-size: 20px;
+    margin-left: 12px;
+    opacity: 0.54;
+}
+
+.codeIcon {
+    opacity: 0.54;
 }
 
 .cardContent {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }

@@ -17,5 +17,14 @@
       |我们的成员主要来自中国，同时也遍布世界各地。\
       |我们希望能够将PNX打造为基岩版最好的服务端软件之一，希望能够将PNX打造为下一代基岩版开发平台。",
   // Plugin Hub
-  "this-plugin-has-no-description": "此插件暂无描述。"
+  "this-plugin-has-no-description": "此插件暂无描述。",
+  "years-ago": "年前",
+  "months-ago": "月前",
+  "days-ago": "天前",
+  "hours-ago": "小时前",
+  "minutes-ago": "分钟前",
+  "just-now": "刚刚",
+  "star-count": "星标数量",
+  "last-update-at": "最后更新于",
+  "see-on-gh": "在GitHub上查看",
 }

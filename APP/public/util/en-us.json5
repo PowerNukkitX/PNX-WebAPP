@@ -21,4 +21,13 @@
       | and we hope to build PNX as the next generation development platform of Minecraft:Bedrock.",
   // Plugin Hub
   "this-plugin-has-no-description": "This plugin has no description.",
+  "years-ago": "years ago",
+  "months-ago": "months ago",
+  "days-ago": "days ago",
+  "hours-ago": "hours ago",
+  "minutes-ago": "minutes ago",
+  "just-now": "just now",
+  "star-count": "Stars",
+  "last-update-at": "Last update at",
+  "see-on-gh": "See on GitHub",
 }
