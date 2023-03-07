@@ -4,6 +4,12 @@
     justify-content: flex-start;
 }
 
+@media (max-width: 600px) {
+    .card {
+        width: 100%;
+    }
+}
+
 .languageLabel {
     margin-left: 8px;
     font-size: 14px;
@@ -45,4 +51,9 @@
 .cardContent {
     padding-top: 4px;
     padding-bottom: 4px;
+    height: 68px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
 }

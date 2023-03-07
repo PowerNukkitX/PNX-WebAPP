@@ -1,0 +1,10 @@
+.pluginList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.pluginList > div {
+    margin: 6px 0px 6px 0px;
+    max-height: 204px;
+}

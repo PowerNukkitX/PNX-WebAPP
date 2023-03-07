@@ -1,7 +1,7 @@
 import MDUI from "../../util/mduiHelper";
 import {Component} from "preact";
 import {translate} from "../../util/language";
-import {useLocation, useRoute} from "preact-iso";
+import {useLocation} from "preact-iso";
 
 export default class PluginDrawer extends Component<{}, { mduiDrawer }> {
 
