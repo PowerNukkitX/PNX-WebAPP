@@ -13,6 +13,8 @@
   "route:/plugin": "插件大厅",
   "route:/plugin/": "插件大厅",
   "route:/plugin/hub": "插件大厅",
+  "route:/hub": "首页",
+  "route:/hub/": "首页",
   // Index
   "pre-alpha-test": "PowerNukkitX Hub仍在开发中，并且仍处于pre-alpha阶段。\
       | 若您找到任何问题，请在我们的GitHub仓库中提交issue。",

@@ -13,6 +13,7 @@ export function App() {
                 <ErrorBoundary>
                     <Router>
                         <Route path="/" component={Home}/>
+                        <Route path="/hub" component={Home}/>
                         <Route path="/about" component={About}/>
                         <Route path="/plugin" component={PluginHub}/>
                         <Route path="/plugin/*" component={PluginHub}/>

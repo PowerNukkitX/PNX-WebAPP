@@ -4,8 +4,8 @@
     "> 0.5%, last 2 versions, not dead"
   ],
   "scripts": {
-    "start": "parcel public/index.html ",
-    "build": "parcel build public/index.html"
+    "start": "parcel public/index.html",
+    "build": "parcel build public/index.html --public-url /hub"
   },
   "eslintConfig": {
     "extends": "preact"
