@@ -36,6 +36,7 @@ class Hub extends Component<{ path: string }, {
     }
 }> {
     private repoData: RepoDataBean[] = [];
+    private totalSize: number = 1;
     private pluginCards: JSX.Element[] = [];
     private lastUpdateTime: number = 0;
 
@@ -148,6 +149,7 @@ class Hub extends Component<{ path: string }, {
                     dataArray.push(RepoDataBean.fromJSON(each));
                 }
                 this.repoData = dataArray;
+                this.totalSize = dataObj.totalSize;
             }
         })
         return true;
@@ -272,7 +274,7 @@ class Hub extends Component<{ path: string }, {
                                 onClick={() => this.turnPageDelta(-1)}>
                             <i className="mdui-icon material-icons">&#xe5dc;</i>
                         </button>
-                        <span>{Math.floor(this.state.updateQuery.from / this.state.updateQuery.size) + 1}</span>
+                        <span>{Math.floor(this.state.updateQuery.from / this.state.updateQuery.size) + 1} / {Math.ceil(this.totalSize / this.state.updateQuery.size)}</span>
                         {/*Page Down*/}
                         <button className="mdui-btn mdui-btn-icon"
                                 mdui-tooltip={`{content: '${translate("page-down")}'}`}
