@@ -30,4 +30,13 @@
   "last-update-at": "最后更新于",
   "see-on-gh": "在GitHub上查看",
   "plugin-hub": "插件大厅",
+  "update-too-frequent": "更新太频繁，请稍后再试。",
+  "refresh": "刷新",
+  "order": "排序方式",
+  "reverse-order": "倒序排列",
+  "recommend": "推荐性",
+  "lastUpdate": "最后更新",
+  "star": "星标数量",
+  "page-up": "上一页",
+  "page-down": "下一页",
 }

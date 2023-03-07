@@ -5,6 +5,29 @@
 }
 
 .pluginList > div {
-    margin: 6px 0px 6px 0px;
+    margin: 4px 0 4px 0;
     max-height: 204px;
+}
+
+.pluginButtonBar {
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.pluginButtonBar > * {
+    margin: 0 8px 0 8px;
+}
+
+.pluginButtonBar > button {
+    margin: 0 4px 0 8px;
+}
+
+.pluginButtonBar > * > span {
+    margin-left: 6px;
+    font-size: 14px;
+    line-height: 36px;
+    letter-spacing: .04em;
 }

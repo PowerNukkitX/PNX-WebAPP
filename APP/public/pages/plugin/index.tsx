@@ -41,13 +41,24 @@ class Hub extends Component<{ path: string }, {
 
     constructor() {
         super();
+        const clientWidth = document.body.clientWidth;
+        let pageSize;
+        if (clientWidth <= 600) {
+            pageSize = 4;
+        } else if (clientWidth <= 1024) {
+            pageSize = 8;
+        } else if (clientWidth <= 1440) {
+            pageSize = 12;
+        } else {
+            pageSize = 16;
+        }
         this.setState({
             updating: false,
             updatingProcess: 0,
             errorReason: null,
             updateQuery: {
                 from: 0,
-                size: 15,
+                size: pageSize,
                 sort: "recommend",
                 order: "desc",
                 keywords: null
@@ -55,10 +66,45 @@ class Hub extends Component<{ path: string }, {
         })
     }
 
-    updatePlugins(): void {
+    shouldComponentUpdate(nextProps: Readonly<{ path: string }>,
+                          nextState: Readonly<{ updating: boolean; updatingProcess: number; errorReason: string; updateQuery: { from: number; size: number; sort: "recommend" | "lastUpdate" | "star"; order: "asc" | "desc"; keywords: string } }>, nextContext: any): boolean {
+        if (this.state.updating || this.state.updating !== nextState.updating) {
+            console.log("ture")
+            return true;
+        }
+        if (!Hub.isObjEqual(this.state.updateQuery, nextState.updateQuery)) {
+            console.log("ture")
+            return true;
+        }
+        console.log("false")
+        return false;
+    }
+
+    private static isObjEqual(object1, object2) {
+        const o1keys = Object.keys(object1);
+        const o2keys = Object.keys(object2);
+        if (o2keys.length !== o1keys.length) return false;
+        for (let i = 0; i <= o1keys.length - 1; i++) {
+            let key = o1keys[i];
+            if (!o2keys.includes(key)) return false;
+            if (object2[key] !== object1[key]) return false;
+        }
+        return true;
+    }
+
+    /**
+     * @returns If we successfully send a request to update plugin list.
+     */
+    updatePlugins(): boolean {
         // 三秒以内不重复更新
         const currentTime = new Date().getTime();
-        if (currentTime - this.lastUpdateTime < 1000 * 3) return;
+        if (currentTime - this.lastUpdateTime < 1000) {
+            MDUI.snackbar({
+                message: translate("update-too-frequent"),
+                buttonText: translate("ok")
+            })
+            return false;
+        }
         this.lastUpdateTime = currentTime;
         // 设置正在更新
         this.setState({
@@ -74,6 +120,7 @@ class Hub extends Component<{ path: string }, {
                     this.setState({
                         updatingProcess: e.loaded / e.total * 100
                     })
+                    console.log("update")
                 })
             },
             error: (xhr, textStatus) => {
@@ -101,9 +148,9 @@ class Hub extends Component<{ path: string }, {
                     dataArray.push(RepoDataBean.fromJSON(each));
                 }
                 this.repoData = dataArray;
-                this.renderPluginCards();
             }
         })
+        return true;
     }
 
     renderPluginCards(): void {
@@ -151,21 +198,103 @@ class Hub extends Component<{ path: string }, {
         return root;
     }
 
+    turnPageDelta(deltaPage: number): void {
+        const queryData = this.state.updateQuery;
+        const previousFrom = queryData.from;
+        queryData.from += deltaPage * queryData.size;
+        if (queryData.from < 0) {
+            queryData.from = 0;
+        }
+        if (queryData.from !== previousFrom) {
+            if (!this.updatePlugins()) {
+                queryData.from = previousFrom;
+            }
+        }
+    }
+
     render() {
+        this.renderPluginCards();
         return (
             <>
                 <div className="mdui-container">
-                    <div className="mdui-row">
+                    <div className="mdui-row mdui-text-center">
                         <h1>{translate("plugin-hub")}</h1>
-                        <button className="mdui-btn mdui-btn-icon mdui-ripple">
-                            <i className="mdui-icon material-icons" onClick={() => this.updatePlugins()}>refresh</i>
-                        </button>
                     </div>
+                    <br/>
+                    <div className={"mdui-row " + style.pluginButtonBar}>
+                        <button className="mdui-btn mdui-ripple" onClick={() => this.updatePlugins()}>
+                            {/*Refresh*/}
+                            <i className="mdui-icon material-icons">&#xe5d5;</i>
+                            <span>{translate("refresh")}</span>
+                        </button>
+                        <div>
+                            <span>{translate("order")}</span>
+                        </div>
+                        <select className="mdui-select" mdui-select="{position: 'bottom'}" onChange={event => {
+                            const state = this.state;
+                            state.updateQuery.sort = event.target['value'] as "recommend" | "lastUpdate" | "star";
+                        }}>
+                            <option value="recommend">{translate("recommend")}</option>
+                            <option value="lastUpdate">{translate("lastUpdate")}</option>
+                            <option value="star">{translate("star")}</option>
+                        </select>
+                        <label className="mdui-switch">
+                            <input type="checkbox" onClick={(event) => {
+                                const state = this.state;
+                                state.updateQuery.order = event.target['checked'] ? "asc" : "desc";
+                                console.log(event.target['checked'])
+                            }}/>
+                            <i className="mdui-switch-icon"></i>
+                            <span>{translate("reverse-order")}</span>
+                        </label>
+                    </div>
+                    <br/>
+                    <div className="mdui-row">
+                        <div className="mdui-progress" style={{
+                            display: this.state.updating ? "block" : "none"
+                        }}>
+                            <div className={
+                                this.state.updatingProcess > 0 ? "mdui-progress-determinate" : "mdui-progress-indeterminate"
+                            } style={{
+                                width: Math.round(this.state.updatingProcess) + "%"
+                            }}></div>
+                        </div>
+                    </div>
+                    <br/>
                     <div className={"mdui-row " + style.pluginList}>
                         {this.pluginCards}
                     </div>
+                    <br/>
+                    <div className={"mdui-row " + style.pluginButtonBar}>
+                        {/*Page Up*/}
+                        <button className="mdui-btn mdui-btn-icon"
+                                mdui-tooltip={`{content: '${translate("page-up")}'}`}
+                                onClick={() => this.turnPageDelta(-1)}>
+                            <i className="mdui-icon material-icons">&#xe5dc;</i>
+                        </button>
+                        <span>{Math.floor(this.state.updateQuery.from / this.state.updateQuery.size) + 1}</span>
+                        {/*Page Down*/}
+                        <button className="mdui-btn mdui-btn-icon"
+                                mdui-tooltip={`{content: '${translate("page-down")}'}`}
+                                onClick={() => this.turnPageDelta(1)}>
+                            <i className="mdui-icon material-icons">&#xe5dd;</i>
+                        </button>
+                    </div>
+                    <br/>
                 </div>
             </>
         )
+    }
+
+    componentDidUpdate(previousProps: Readonly<{ path: string }>,
+                       previousState: Readonly<{ updating: boolean; updatingProcess: number; errorReason: string; updateQuery: { from: number; size: number; sort: "recommend" | "lastUpdate" | "star"; order: "asc" | "desc"; keywords: string } }>, snapshot: any) {
+        MDUI.mutation("." + style.pluginButtonBar);
+    }
+
+    componentDidMount() {
+        if (this.repoData.length === 0) {
+            this.updatePlugins();
+        }
+        MDUI.mutation("." + style.pluginButtonBar);
     }
 }
