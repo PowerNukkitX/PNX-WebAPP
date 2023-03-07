@@ -207,6 +207,9 @@ class Hub extends Component<{ path: string }, {
         if (queryData.from < 0) {
             queryData.from = 0;
         }
+        if (queryData.from + 1 >= this.totalSize) {
+            queryData.from = this.totalSize - 1;
+        }
         if (queryData.from !== previousFrom) {
             if (!this.updatePlugins()) {
                 queryData.from = previousFrom;

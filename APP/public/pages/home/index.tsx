@@ -9,6 +9,7 @@ export default function Home() {
                 <div className="mdui-row mdui-text-center">
                     <h1>PowerNukkitX Hub</h1>
                 </div>
+                <br/>
                 <div className="mdui-row mdui-text-center">
                     <p>{translate("pre-alpha-test")}</p>
                 </div>

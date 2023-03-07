@@ -27,6 +27,12 @@ export default class PluginDrawer extends Component<{}, { mduiDrawer }> {
             mduiDrawer: drawer
         });
         drawer.open();
+        drawer.$element.on('close.mdui.drawer', () => {
+            MDUI.snackbar({
+                message: translate("plugin-drawer-close"),
+                buttonText: translate("ok")
+            })
+        })
     }
 
     componentWillUnmount() {

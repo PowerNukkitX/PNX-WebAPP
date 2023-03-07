@@ -13,21 +13,33 @@
 .languageLabel {
     margin-left: 8px;
     font-size: 14px;
+    overflow-wrap: normal;
+    height: 26px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .starLabel {
     margin-left: 4px;
     font-size: 14px;
+    height: 26px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .timeLabel {
     margin-left: 4px;
     font-size: 14px;
+    height: 26px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .languageDot {
     width: 12px;
     height: 12px;
+    min-width: 12px;
+    min-height: 12px;
     border-radius: 50%;
     margin-left: 8px;
 }
