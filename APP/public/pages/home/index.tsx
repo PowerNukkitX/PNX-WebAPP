@@ -1,25 +1,18 @@
 // @ts-ignore
 import home from './style.module.css';
-import {useState} from 'preact/hooks';
+import {translate} from "../../util/language";
 
 export default function Home() {
-    const [count, setCount] = useState(0);
-
     return (
         <>
-            <section class={`${home}`}>
-                <h1>Home</h1>
-                <p>This is the home page.</p>
-                <>
-                    <button style={{width: 30}} onClick={() => setCount(count - 1)}>
-                        -
-                    </button>
-                    <output style={{padding: 10}}>Count: {count}</output>
-                    <button style={{width: 30}} onClick={() => setCount(count + 1)}>
-                        +
-                    </button>
-                </>
-            </section>
+            <div className="mdui-container">
+                <div className="mdui-row mdui-text-center">
+                    <h1>PowerNukkitX Hub</h1>
+                </div>
+                <div className="mdui-row mdui-text-center">
+                    <p>{translate("pre-alpha-test")}</p>
+                </div>
+            </div>
         </>
     );
 }

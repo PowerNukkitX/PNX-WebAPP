@@ -11,6 +11,9 @@
   "route:/plugin": "Plugin Hub",
   "route:/plugin/": "Plugin Hub",
   "route:/plugin/hub": "Plugin Hub",
+  // Index
+  "pre-alpha-test": "PowerNukkitX Hub is still under development and it's still in the pre-alpha stage.\
+      | Please report any bugs you find in our GitHub repo.",
   // About Us
   "about-us": "About us",
   "pnx-team": "We are PNX dev team, PNX, which has a full name of PowerNukkitX,\
