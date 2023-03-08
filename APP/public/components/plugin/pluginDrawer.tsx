@@ -12,7 +12,7 @@ export default class PluginDrawer extends Component<{}, { mduiDrawer }> {
                 <ul className="mdui-list" style={{
                     paddingLeft: 0
                 }}>
-                    <li onClick={() => route("/plugin/hub")} className="mdui-list-item mdui-ripple">
+                    <li onClick={() => route("/hub/plugin/hub")} className="mdui-list-item mdui-ripple">
                         <i className="mdui-list-item-avatar mdui-icon material-icons">extension</i>
                         <div className="mdui-list-item-content">{translate("plugin-hub")}</div>
                     </li>

@@ -14,9 +14,9 @@ export function App() {
                     <Router>
                         <Route path="/" component={Home}/>
                         <Route path="/hub" component={Home}/>
-                        <Route path="/about" component={About}/>
-                        <Route path="/plugin" component={PluginHub}/>
-                        <Route path="/plugin/*" component={PluginHub}/>
+                        <Route path="/hub/about" component={About}/>
+                        <Route path="/hub/plugin" component={PluginHub}/>
+                        <Route path="/hub/plugin/*" component={PluginHub}/>
                         <Route default component={NotFound}/>
                     </Router>
                 </ErrorBoundary>

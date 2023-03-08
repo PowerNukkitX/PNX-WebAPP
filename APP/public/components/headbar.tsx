@@ -20,11 +20,11 @@ export default class HeadBar extends Component {
 
     private pageInfos = [
         {
-            href: "/plugin",
+            href: "/hub/plugin",
             icon: "extension"
         },
         {
-            href: "/about",
+            href: "/hub/about",
             icon: "supervisor_account"
         }
     ]

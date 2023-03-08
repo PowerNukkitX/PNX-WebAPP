@@ -9,11 +9,12 @@
   "page-gone": "啊哦，页面不见了 :(",
   // 路由
   "route:/": "首页",
-  "route:/about": "关于我们",
+  "route:/hub/about": "关于我们",
   "route:/more": "查看更多",
-  "route:/plugin": "插件大厅",
-  "route:/plugin/": "插件大厅",
-  "route:/plugin/hub": "插件大厅",
+  "route:/hub/more": "查看更多",
+  "route:/hub/plugin": "插件大厅",
+  "route:/hub/plugin/": "插件大厅",
+  "route:/hub/plugin/hub": "插件大厅",
   "route:/hub": "首页",
   "route:/hub/": "首页",
   // Index
