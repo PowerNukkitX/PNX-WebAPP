@@ -9,6 +9,7 @@ import MDUI from "../../util/mduiHelper";
 import {getApiURL} from "../../util/apiUtil";
 // @ts-ignore
 import * as style from "./style.module.css";
+import slideChooseDialog from "../../components/dialog/sliderChooseDialog";
 
 export default function PluginHub() {
     return (
@@ -208,13 +209,21 @@ class Hub extends Component<{ path: string }, {
             queryData.from = 0;
         }
         if (queryData.from + 1 >= this.totalSize) {
-            queryData.from = this.totalSize - 1;
+            queryData.from = previousFrom;
         }
         if (queryData.from !== previousFrom) {
             if (!this.updatePlugins()) {
                 queryData.from = previousFrom;
             }
         }
+    }
+
+    get currentPage(): number {
+        return Math.floor(this.state.updateQuery.from / this.state.updateQuery.size) + 1
+    }
+
+    get maxPage(): number {
+        return Math.ceil(this.totalSize / this.state.updateQuery.size)
     }
 
     render() {
@@ -277,7 +286,13 @@ class Hub extends Component<{ path: string }, {
                                 onClick={() => this.turnPageDelta(-1)}>
                             <i className="mdui-icon material-icons">&#xe5dc;</i>
                         </button>
-                        <span>{Math.floor(this.state.updateQuery.from / this.state.updateQuery.size) + 1} / {Math.ceil(this.totalSize / this.state.updateQuery.size)}</span>
+                        <button className="mdui-btn mdui-btn-raised"
+                                onClick={() => slideChooseDialog("翻页", this.currentPage, 1, this.maxPage, 1).then(page => {
+                                    this.turnPageDelta(page - this.currentPage);
+                                }).catch(() => {
+                                    console.log("Canceled turn page.")
+                                })}
+                        >{this.currentPage} / {this.maxPage}</button>
                         {/*Page Down*/}
                         <button className="mdui-btn mdui-btn-icon"
                                 mdui-tooltip={`{content: '${translate("page-down")}'}`}
