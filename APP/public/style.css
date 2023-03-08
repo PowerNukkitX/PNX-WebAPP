@@ -5,6 +5,24 @@ body {
 	font-family: system-ui, sans-serif;
 }
 
+.app {
+	min-height: 100%;
+}
+
+@media (max-width: 600px) {
+	.app{
+		height: calc(100vh - 56px);
+		overflow-y: scroll;
+	}
+}
+
+@media (min-width: 600px) {
+	.app{
+		height: calc(100vh - 64px);
+		overflow-y: scroll;
+	}
+}
+
 .icon-title {
 	font-weight: bold;
 	margin-top: -12px;
