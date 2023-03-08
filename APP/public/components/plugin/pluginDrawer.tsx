@@ -28,10 +28,12 @@ export default class PluginDrawer extends Component<{}, { mduiDrawer }> {
         });
         drawer.open();
         drawer.$element.on('close.mdui.drawer', () => {
-            MDUI.snackbar({
-                message: translate("plugin-drawer-close"),
-                buttonText: translate("ok")
-            })
+            if (window.innerWidth <= 1024) {
+                MDUI.snackbar({
+                    message: translate("plugin-drawer-close"),
+                    buttonText: translate("ok")
+                })
+            }
         })
     }
 
