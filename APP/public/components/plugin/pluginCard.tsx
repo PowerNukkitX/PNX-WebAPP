@@ -6,22 +6,29 @@ import {getApiURL} from "../../util/apiUtil";
 import {translate} from "../../util/language";
 import {time2AgoString} from "../../util/timeUtil";
 import {Component} from "preact";
+import {useLocation} from "preact-iso";
 
 export function PluginCard(props: { repo: RepoDataBean }) {
     const repo = props.repo;
+    const {route} = useLocation();
+
+    function openDetail() {
+        route("/hub/plugin/detail/" + repo.id);
+    }
+
     return (
         <div className="mdui-col-lg-3 mdui-col-md-4 mdui-col-sm-6 mdui-col-xs-12">
             <div className={"mdui-card " + style.card}>
-                <div className="mdui-card-header">
+                <div className="mdui-card-header mdui-ripple" onClick={openDetail}>
                     <img className="mdui-card-header-avatar" alt={repo.id}
                          src={`${getApiURL()}/download/${repo.iconDownloadID}`}/>
                     <div className="mdui-card-header-title">{repo.name}</div>
                     <div className="mdui-card-header-subtitle">{repo.owner}</div>
                 </div>
-                <div className={`mdui-card-content ${style.cardContent}`}>
+                <div className={`mdui-card-content mdui-ripple ${style.cardContent}`} onClick={openDetail}>
                     {repo.description ?? translate("this-plugin-has-no-description")}
                 </div>
-                <div class="mdui-toolbar-vec-spacer"></div>
+                <div class="mdui-toolbar-vec-spacer mdui-ripple" onClick={openDetail}></div>
                 <div className="mdui-card-actions mdui-valign">
                     <LanguageComponent language={repo.mainLanguage}/>
                     <StarComponent star={repo.star}/>
@@ -34,7 +41,7 @@ export function PluginCard(props: { repo: RepoDataBean }) {
     )
 }
 
-function LanguageComponent(props: { language: string }) {
+export function LanguageComponent(props: { language: string }) {
     return (
         <>
             <span className={style.languageDot} style={{
@@ -45,7 +52,7 @@ function LanguageComponent(props: { language: string }) {
     )
 }
 
-function StarComponent(props: { star: number }) {
+export function StarComponent(props: { star: number | string }) {
     return (
         <>
             <span className="mdui-valign" mdui-tooltip={`{content: '${translate("star-count")}'}`}>
@@ -56,12 +63,14 @@ function StarComponent(props: { star: number }) {
     )
 }
 
-function TimeComponent(props: { time: Date }) {
+export function TimeComponent(props: { time: Date | string }) {
     return (
         <>
             <span className="mdui-valign" mdui-tooltip={`{content: '${translate("last-update-at")}'}`}>
                 <i translate="no" className={"mdui-icon material-icons " + style.timeIcon}>access_time</i>
-                <span className={style.timeLabel}>{time2AgoString(props.time)}</span>
+                <span className={style.timeLabel}>{
+                    typeof props.time === "string" ? props.time : time2AgoString(new Date(props.time))
+                }</span>
             </span>
         </>
     )

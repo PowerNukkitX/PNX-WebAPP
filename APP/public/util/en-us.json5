@@ -4,6 +4,8 @@
   "switch-to-night": "Switch to night-mode",
   "ok": "OK",
   "close": "Close",
+  "loading": "Loading...",
+  "back": "Back",
   "switch-theme": "Switch theme",
   "page-gone": "Oops, this page is gone :(",
   "route:/": "Home",
@@ -45,7 +47,9 @@
   "recommend": "Recommendation",
   "lastUpdate": "Last update",
   "star": "Stars",
+  "author": "Author",
   "page-up": "Page up",
   "page-down": "Page down",
-  "plugin-drawer-close": "You can reopen by sliding from the left"
+  "plugin-drawer-close": "You can reopen by sliding from the left",
+  "error-get-data": "Failed to get data. Please try again later.",
 }

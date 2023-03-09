@@ -4,6 +4,10 @@
     justify-content: flex-start;
 }
 
+.card > div[onclick] {
+    cursor: pointer;
+}
+
 @media (max-width: 600px) {
     .card {
         width: 100%;

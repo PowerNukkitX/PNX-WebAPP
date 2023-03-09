@@ -14,8 +14,31 @@ function getLanguageMap(languageId: string): { [key: string]: string } {
     }
 }
 
+interface Translators {
+    match(key: string): boolean;
+    translate(key: string): string;
+}
+
+const translators = [
+    {
+        match: (key: string) => key.startsWith("route:/hub/plugin/detail/"),
+        translate: (key: string) => {
+            const tmp = key.substring("route:/hub/plugin/detail/".length);
+            if (window.innerWidth < 600) {
+                return  tmp.substring(tmp.indexOf("/") + 1)
+            }
+            return tmp;
+        }
+    }
+];
+
 export function translate(key: string): string {
     key = key.trim();
+    for (const translator of translators) {
+        if (translator.match(key)) {
+            key = translator.translate(key);
+        }
+    }
     if (languageId === "zh-cn") {
         const tmp = getLanguageMap("zh-cn")[key];
         return trimMultiLineString(tmp ?? key);

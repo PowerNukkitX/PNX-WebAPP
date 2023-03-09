@@ -1,0 +1,24 @@
+.detailContainer {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.noLeftPaddingValign span[style] {
+    margin-left: 0;
+    flex-wrap: wrap;
+}
+
+.authorLabel {
+    margin-left: 4px;
+    font-size: 14px;
+    height: 26px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    overflow-wrap: normal;
+}
+
+.authorIcon {
+    font-size: 20px;
+    margin-left: 12px;
+    opacity: 0.54;
+}
