@@ -6,10 +6,11 @@ import {Router} from "preact-iso";
 import {translate} from "../../util/language";
 import {Component, JSX} from "preact";
 import MDUI from "../../util/mduiHelper";
-import {getApiURL} from "../../util/apiUtil";
+import {apiGetJson, getApiURL} from "../../util/apiUtil";
 // @ts-ignore
 import * as style from "./style.module.css";
 import slideChooseDialog from "../../components/dialog/sliderChooseDialog";
+import PluginDetail from "../../components/plugin/pluginDetail";
 
 export default function PluginHub() {
     return (
@@ -18,6 +19,7 @@ export default function PluginHub() {
             <Router>
                 <Hub path={"/"}/>
                 <Hub path={"/hub"}/>
+                <PluginDetail path={"/detail/*"}></PluginDetail>
                 <NotFound default={true}/>
             </Router>
         </>
@@ -112,11 +114,8 @@ class Hub extends Component<{ path: string }, {
         this.setState({
             updating: true
         })
-        MDUI.$.ajax({
-            method: "GET",
+        apiGetJson<any>({
             url: this.processURL(),
-            cache: false,
-            async: true,
             beforeSend: xhr => {
                 xhr.upload.addEventListener("progress", e => {
                     this.setState({
@@ -132,13 +131,12 @@ class Hub extends Component<{ path: string }, {
                     errorReason: textStatus
                 })
             }
-        }).then(data => {
+        }).then(dataObj => {
             this.setState({
                 updating: false,
                 updatingProcess: 0,
                 errorReason: null
             });
-            const dataObj = JSON.parse(data);
             if (dataObj.size === 0) {
                 this.setState({
                     updatingProcess: -1,
@@ -152,7 +150,7 @@ class Hub extends Component<{ path: string }, {
                 this.repoData = dataArray;
                 this.totalSize = dataObj.totalSize;
             }
-        })
+        });
         return true;
     }
 
@@ -208,7 +206,7 @@ class Hub extends Component<{ path: string }, {
         if (queryData.from < 0) {
             queryData.from = 0;
         }
-        if (queryData.from + 1 >= this.totalSize) {
+        if (queryData.from + 1 > this.totalSize) {
             queryData.from = previousFrom;
         }
         if (queryData.from !== previousFrom) {
