@@ -11,7 +11,7 @@ export default function slideChooseDialog(title: string, current: number, min: n
     const fragment = <div className="mdui-dialog mdui-dialog-open" id={id}>
         <div className="mdui-dialog-title">{title}</div>
         <div className={style.sliderDialogContent}>
-            <label className="mdui-slider mdui-slider-discrete">
+            <label className="mdui-slider mdui-slider-discrete" id={"slider-" + id}>
                 <input type="range" step={step} min={min} max={max} value={current}/>
             </label>
         </div>
@@ -22,10 +22,15 @@ export default function slideChooseDialog(title: string, current: number, min: n
     </div>
     if (tmpElement === null) {
         tmpElement = document.createElement("div");
+    } else {
+        while (tmpElement.firstChild) {
+            tmpElement.removeChild(tmpElement.firstChild);
+        }
     }
     document.body.append(tmpElement);
     render(fragment, tmpElement);
     mdui.mutation("#" + id);
+    mdui.updateSliders("#slider-" + id);
     return new Promise<number>((resolve, reject) => {
         const dialog = new mdui.Dialog("#" + id);
         dialog.$element.on("confirm.mdui.dialog", () => {
