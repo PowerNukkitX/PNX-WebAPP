@@ -1,6 +1,9 @@
 import {translate} from "./language";
 
-export function time2AgoString(time: Date): string {
+export function time2AgoString(time: Date | number): string {
+    if (typeof time === "number") {
+        time = new Date(time);
+    }
     const now = new Date();
     const diff = now.getTime() - time.getTime();
     const seconds = Math.floor(diff / 1000);

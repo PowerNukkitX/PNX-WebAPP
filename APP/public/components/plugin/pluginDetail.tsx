@@ -1,4 +1,6 @@
-import {Component, RenderableProps} from "preact";
+// noinspection HtmlUnknownAnchorTarget
+
+import {Component, createRef, RefObject, RenderableProps} from "preact";
 import RepoDataBean from "../../data/RepoDataBean";
 import MDUI from "../../util/mduiHelper";
 import {translate} from "../../util/language";
@@ -7,6 +9,9 @@ import {ReadmeDataBean} from "../../data/ReadmeDataBean";
 import {LanguageComponent, StarComponent, TimeComponent} from "./pluginCard";
 // @ts-ignore
 import * as style from "./pluginDetail.module.css";
+import ReleaseDataBean from "../../data/ReleaseDataBean";
+import {time2AgoString} from "../../util/timeUtil";
+import {useState} from "preact/compat";
 
 interface Props {
     path: string
@@ -16,9 +21,12 @@ interface State {
     repoData: RepoDataBean | null | undefined
     renderedReadme: string | null | undefined
     lastUpdateTime: Date | null | undefined
+    latestRelease: ReleaseDataBean | null | undefined
 }
 
 export default class PluginDetail extends Component<Props, State> {
+    private readonly ref: RefObject<HTMLDivElement> = createRef();
+
     get pluginID(): string {
         const path = this.props.path;
         if (path.endsWith("/")) {
@@ -35,6 +43,7 @@ export default class PluginDetail extends Component<Props, State> {
                 buttonText: translate("ok")
             })
         });
+        MDUI.mutation("#" + this.ref.current.id);
     }
 
     async updateInfo(force: boolean) {
@@ -70,6 +79,14 @@ export default class PluginDetail extends Component<Props, State> {
                     })
                 }
             }
+            if (!this.state.latestRelease || force) {
+                const releaseData = await apiGetJson<ReleaseDataBean>({
+                    url: "/git/latest-release/" + this.pluginID
+                });
+                this.setState({
+                    latestRelease: releaseData
+                })
+            }
         } catch (e) {
             console.error(e);
             MDUI.snackbar({
@@ -81,7 +98,7 @@ export default class PluginDetail extends Component<Props, State> {
 
     render(props: RenderableProps<Props> | undefined, state: Readonly<State> | undefined) {
         return (
-            <div className={style.detailContainer}>
+            <div className={style.detailContainer} ref={this.ref} id={Math.random().toString(36).substring(2)}>
                 <div className="mdui-container mdui-typo">
                     <br/>
                     <div className="mdui-row">
@@ -103,7 +120,7 @@ export default class PluginDetail extends Component<Props, State> {
                             <span>{translate("refresh")}</span>
                         </button>
                     </div>
-                    <br/>
+                    <hr/>
                     <div className="mdui-row">
                         <div className="mdui-typo-display-1">
                             {state?.repoData?.name ?? translate("loading")}
@@ -115,11 +132,20 @@ export default class PluginDetail extends Component<Props, State> {
                         <TimeComponent time={state?.repoData?.lastUpdateAt ?? translate("loading")}/>
                         <AuthorComponent author={state?.repoData?.owner ?? translate("loading")}/>
                     </div>
-                    <hr/>
                     <div className="mdui-row">
+                        <div className="mdui-tab" mdui-tab>
+                            <a href="#tab-introduction" className="mdui-ripple">{translate("introduction")}</a>
+                            <a href="#release-content" className="mdui-ripple">{translate("download")}</a>
+                        </div>
+                    </div>
+                    <div className="mdui-row" id="tab-introduction">
                         <div className="mdui-typo" dangerouslySetInnerHTML={{
                             __html: state?.renderedReadme ?? translate("loading")
                         }}></div>
+                    </div>
+                    <div id="release-content" className="mdui-row mdui-typo">
+                        <div className="mdui-typo-headline-opacity">最新发行版</div>
+                        <ReleaseComponent pluginID={this.pluginID} releaseDataBeans={[state?.latestRelease]}/>
                     </div>
                 </div>
                 <br/>
@@ -134,5 +160,66 @@ export function AuthorComponent(props: { author: string }) {
             <i translate="no" className={"mdui-icon material-icons " + style.authorIcon}>&#xe7fb;</i>
             <span className={style.authorLabel}>{props.author}</span>
         </span>
+    )
+}
+
+export function ReleaseComponent(props: { pluginID: string, releaseDataBeans: Array<ReleaseDataBean> }) {
+    const [state, updater] = useState({});
+    for (const releaseDataBean of props.releaseDataBeans) {
+        if (releaseDataBean && releaseDataBean.body && !state['renderedReadme_' + releaseDataBean.tagName]) {
+            apiPostRaw<string>({
+                url: "/git/markdown/" + props.pluginID,
+                contentType: "text/plain",
+                data: releaseDataBean.body
+            }).then(value => {
+                const tmp = {};
+                tmp['renderedReadme_' + releaseDataBean.tagName] = value;
+                updater(tmp);
+            }).catch(() => {
+                const tmp = {};
+                tmp['renderedReadme_' + releaseDataBean.tagName] = translate("error-get-data");
+                updater(tmp);
+            })
+        }
+    }
+    return (
+        <div className="mdui-panel" mdui-panel>
+            {props.releaseDataBeans.map((releaseDataBean) => {
+                if (!releaseDataBean || !releaseDataBean.name) return <></>
+                return (
+                    <div className="mdui-panel-item mdui-panel-item-open">
+                        <div className="mdui-panel-item-header">
+                            <div className="mdui-panel-item-title">{releaseDataBean.name}</div>
+                            <div className="mdui-panel-item-summary">{time2AgoString(releaseDataBean.publishedAt)}</div>
+                            <i className="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+                        </div>
+                        <div className="mdui-panel-item-body">
+                            <div className="mdui-typo" dangerouslySetInnerHTML={{
+                                __html: state['renderedReadme_' + releaseDataBean.tagName] ?? ""
+                            }}></div>
+                            <hr style={{
+                                display: releaseDataBean.body ? "block" : "none"
+                            }}/>
+                            <ul className={"mdui-list " + style.downloadList} style={{
+                                paddingLeft: "0"
+                            }}>
+                                {releaseDataBean.artifacts.map((artifact) => {
+                                    if (!artifact.name) return <></>
+                                    return (
+                                        <li className="mdui-list-item mdui-ripple">
+                                            <div className="mdui-list-item-content mdui-valign">
+                                                <span className={style.fileName}>{artifact.name}</span>
+                                                <TimeComponent time={artifact.createAt}/>
+                                            </div>
+                                            <i className="mdui-list-item-icon mdui-icon material-icons">&#xe2c4;</i>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </div>
+                    </div>
+                )
+            })}
+        </div>
     )
 }

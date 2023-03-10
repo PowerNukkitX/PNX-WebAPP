@@ -22,3 +22,28 @@
     margin-left: 12px;
     opacity: 0.54;
 }
+
+.downloadList {
+    flex-wrap: wrap;
+}
+
+.downloadList > li > div {
+    flex-wrap: wrap;
+}
+
+.downloadList > li > div > span {
+    margin-bottom: 4px;
+    transform: translateY(2px);
+}
+
+.downloadList .fileName {
+    margin-right: 12px;
+}
+
+.downloadList i {
+    margin-left: 0;
+}
+
+.downloadList i+span {
+    height: auto;
+}

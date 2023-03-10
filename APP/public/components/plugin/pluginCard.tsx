@@ -63,13 +63,13 @@ export function StarComponent(props: { star: number | string }) {
     )
 }
 
-export function TimeComponent(props: { time: Date | string }) {
+export function TimeComponent(props: { time: Date | string | number }) {
     return (
         <>
             <span className="mdui-valign" mdui-tooltip={`{content: '${translate("last-update-at")}'}`}>
                 <i translate="no" className={"mdui-icon material-icons " + style.timeIcon}>access_time</i>
                 <span className={style.timeLabel}>{
-                    typeof props.time === "string" ? props.time : time2AgoString(new Date(props.time))
+                    typeof props.time === "string" ? props.time : time2AgoString(props.time)
                 }</span>
             </span>
         </>

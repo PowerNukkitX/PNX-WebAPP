@@ -50,5 +50,6 @@
   "page-up": "上一页",
   "page-down": "下一页",
   "plugin-drawer-close": "您可通过从左侧滑动来再次打开",
-  "error-get-data": "无法获取数据。请稍后再试。"
+  "error-get-data": "无法获取数据。请稍后再试。",
+  "introduction": "简介",
 }
