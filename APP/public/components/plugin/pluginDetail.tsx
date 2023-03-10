@@ -4,7 +4,7 @@ import {Component, createRef, RefObject, RenderableProps} from "preact";
 import RepoDataBean from "../../data/RepoDataBean";
 import MDUI from "../../util/mduiHelper";
 import {translate} from "../../util/language";
-import {apiGetJson, apiPostRaw} from "../../util/apiUtil";
+import {apiGetJson, apiPostRaw, getApiURL} from "../../util/apiUtil";
 import {ReadmeDataBean} from "../../data/ReadmeDataBean";
 import {LanguageComponent, StarComponent, TimeComponent} from "./pluginCard";
 // @ts-ignore
@@ -265,7 +265,9 @@ export function ReleaseComponent(props: { pluginID: string, releaseDataBeans: Ar
                                                     <TimeComponent time={artifact.createAt}/>
                                                     <FileSizeComponent size={artifact.sizeInBytes}/>
                                                 </div>
-                                                <i className="mdui-list-item-icon mdui-icon material-icons">&#xe2c4;</i>
+                                                <a href={getApiURL() + "/download/" + artifact.downloadId} download>
+                                                    <i className="mdui-list-item-icon mdui-icon material-icons">&#xe2c4;</i>
+                                                </a>
                                             </li>
                                         )
                                     })}
