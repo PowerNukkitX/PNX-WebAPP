@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@parcel/transformer-inline-string": "^2.8.3",
+    "@parcel/transformer-less": "^2.8.3",
     "parcel": "^2.8.3"
   },
   "alias": {

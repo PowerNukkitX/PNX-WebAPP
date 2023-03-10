@@ -4,8 +4,10 @@ import NotFound from './pages/_404';
 import About from "./pages/about";
 import HeadBar from './components/headbar';
 import PluginHub from "./pages/plugin";
+import {initDefaultTheme} from "./util/theme";
 
 export function App() {
+    initDefaultTheme();
     return (
         <LocationProvider>
             <HeadBar/>
