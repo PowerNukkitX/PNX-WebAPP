@@ -26,7 +26,11 @@ export default class PluginDrawer extends Component<{}, { mduiDrawer }> {
         this.setState({
             mduiDrawer: drawer
         });
-        drawer.open();
+        if (window.innerWidth > 1024) {
+            drawer.open();
+        } else if (location.href.endsWith("/hub/plugin/hub") || location.href.endsWith("/hub/plugin")) {
+            drawer.open();
+        }
         drawer.$element.on('close.mdui.drawer', () => {
             if (window.innerWidth <= 1024) {
                 MDUI.snackbar({

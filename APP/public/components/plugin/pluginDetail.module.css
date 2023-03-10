@@ -8,6 +8,10 @@
     flex-wrap: wrap;
 }
 
+.noLeftPaddingValign {
+    flex-wrap: wrap;
+}
+
 .componentLabel {
     margin-left: 4px;
     margin-right: 12px;
@@ -20,7 +24,6 @@
 
 .componentIcon {
     font-size: 20px;
-    margin-left: 12px;
     opacity: 0.54;
 }
 
