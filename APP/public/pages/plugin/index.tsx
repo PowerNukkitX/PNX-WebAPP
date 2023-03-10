@@ -26,6 +26,8 @@ export default function PluginHub() {
     )
 }
 
+let queryFrom = 0;
+
 class Hub extends Component<{ path: string }, {
     updating: boolean,
     updatingProcess: number, // 0-100 如果 <0 说明请求出错
@@ -61,7 +63,7 @@ class Hub extends Component<{ path: string }, {
             updatingProcess: 0,
             errorReason: null,
             updateQuery: {
-                from: 0,
+                from: queryFrom,
                 size: pageSize,
                 sort: "recommend",
                 order: "desc",
@@ -309,10 +311,24 @@ class Hub extends Component<{ path: string }, {
         MDUI.mutation("." + style.pluginButtonBar);
     }
 
+    componentWillMount() {
+        const queryData = this.state.updateQuery;
+        if (queryData) {
+            queryData.from = queryFrom;
+            this.setState({
+                updateQuery: queryData
+            })
+        }
+    }
+
     componentDidMount() {
         if (this.repoData.length === 0) {
             this.updatePlugins();
         }
         MDUI.mutation("." + style.pluginButtonBar);
+    }
+
+    componentWillUnmount() {
+        queryFrom = this.state.updateQuery.from;
     }
 }
