@@ -282,7 +282,7 @@ export function ReleaseComponent(props: { pluginID: string, releaseDataBeans: Ar
                                     <a onClick={(e) => {
                                         props?.loadAllCallback();
                                         (e.target as HTMLAnchorElement).style.display = "none";
-                                    }} className={style.centerActionLink}>加载所有发行版</a>
+                                    }} className={style.centerActionLink}>{translate("load-all-releases")}</a>
                                 </div>
                             </>)
                         }

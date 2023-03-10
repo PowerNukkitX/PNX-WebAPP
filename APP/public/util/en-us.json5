@@ -56,4 +56,5 @@
   "no-release": "There is no release for this plugin. Please contact the author or try the builds.",
   "release": "Release",
   "file-size": "File size",
+  "load-all-releases": "Load all releases",
 }
