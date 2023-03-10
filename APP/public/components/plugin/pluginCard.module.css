@@ -16,6 +16,7 @@
 
 .languageLabel {
     margin-left: 8px;
+    margin-right: 12px;
     font-size: 14px;
     overflow-wrap: normal;
     height: 26px;
@@ -25,6 +26,7 @@
 
 .starLabel {
     margin-left: 4px;
+    margin-right: 12px;
     font-size: 14px;
     height: 26px;
     text-overflow: ellipsis;
@@ -33,6 +35,7 @@
 
 .timeLabel {
     margin-left: 4px;
+    margin-right: 12px;
     font-size: 14px;
     height: 26px;
     text-overflow: ellipsis;
@@ -50,13 +53,11 @@
 
 .starIcon {
     font-size: 20px;
-    margin-left: 12px;
     opacity: 0.54;
 }
 
 .timeIcon {
     font-size: 20px;
-    margin-left: 12px;
     opacity: 0.54;
 }
 

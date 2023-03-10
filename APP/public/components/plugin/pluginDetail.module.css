@@ -8,8 +8,9 @@
     flex-wrap: wrap;
 }
 
-.authorLabel {
+.componentLabel {
     margin-left: 4px;
+    margin-right: 12px;
     font-size: 14px;
     height: 26px;
     text-overflow: ellipsis;
@@ -17,7 +18,7 @@
     overflow-wrap: normal;
 }
 
-.authorIcon {
+.componentIcon {
     font-size: 20px;
     margin-left: 12px;
     opacity: 0.54;
@@ -46,4 +47,11 @@
 
 .downloadList i+span {
     height: auto;
+}
+
+.centerActionLink {
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    margin-top: 4px;
 }

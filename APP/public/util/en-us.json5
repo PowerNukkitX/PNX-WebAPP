@@ -52,5 +52,8 @@
   "page-down": "Page down",
   "plugin-drawer-close": "You can reopen by sliding from the left",
   "error-get-data": "Failed to get data. Please try again later.",
-  "introduction": "Introduction"
+  "introduction": "Introduction",
+  "no-release": "There is no release for this plugin. Please contact the author or try the builds.",
+  "release": "Release",
+  "file-size": "File size",
 }
