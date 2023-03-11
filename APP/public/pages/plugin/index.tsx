@@ -65,8 +65,8 @@ class Hub extends Component<{ path: string }, {
             updateQuery: {
                 from: queryFrom,
                 size: pageSize,
-                sort: "recommend",
-                order: "desc",
+                sort: (localStorage.getItem("pluginHubSort") as "recommend" | "lastUpdate" | "star") || "recommend",
+                order: (localStorage.getItem("pluginHubOrder") as "asc" | "desc") || "desc",
                 keywords: null
             }
         })
@@ -244,11 +244,24 @@ class Hub extends Component<{ path: string }, {
                         <div>
                             <span>{translate("order")}</span>
                         </div>
-                        {/*TODO 保存用户的选择，退出重进后仍然可用*/}
                         {/*TODO 在切换推荐方式后立即更新插件列表*/}
-                        <select className="mdui-select" mdui-select="{position: 'bottom'}" onChange={event => {
+                        <select className="mdui-select" value={this.state.updateQuery.sort} mdui-select="{position: 'bottom'}" onChange={event => {
                             const state = this.state;
+                            const temp = state.updateQuery.sort;
                             state.updateQuery.sort = event.target['value'] as "recommend" | "lastUpdate" | "star";
+                            // 写入到本地存储
+                            const update = this.updatePlugins();
+                            if(update){
+                                localStorage.setItem("pluginHubSort", state.updateQuery.sort);
+                            }else{
+                                // 如果更新失败则恢复原来的排序方式
+                                this.state.updateQuery.sort = temp;
+                                console.log(event);
+                                // 重置选择框
+                                event.target['value'] = temp;
+                               // TODO: 目前无法重置选择框视图
+                                return;
+                            }
                         }}>
                             <option value="recommend">{translate("recommend")}</option>
                             <option value="lastUpdate">{translate("lastUpdate")}</option>
@@ -256,10 +269,21 @@ class Hub extends Component<{ path: string }, {
                         </select>
                         {/*TODO 在切换排序方式后立即更新插件列表*/}
                         <label className="mdui-switch">
-                            <input type="checkbox" onClick={(event) => {
+                            <input type="checkbox" checked={(this.state.updateQuery.order == 'asc')} onClick={(event) => {
                                 const state = this.state;
+                                const temp = state.updateQuery.order;
                                 state.updateQuery.order = event.target['checked'] ? "asc" : "desc";
-                                console.log(event.target['checked'])
+                                // 写入到本地存储
+                                localStorage.setItem("pluginHubOrder", state.updateQuery.order);
+                                if(this.updatePlugins()){
+                                    localStorage.setItem("pluginHubOrder", state.updateQuery.order);
+                                }else{
+                                    // 如果更新失败则恢复原来的排序方式
+                                    this.state.updateQuery.order = temp;
+                                    // 重置开关状态
+                                    event.target['checked'] = !event.target['checked'];
+                                    return;
+                                }
                             }}/>
                             <i className="mdui-switch-icon"></i>
                             <span>{translate("reverse-order")}</span>
