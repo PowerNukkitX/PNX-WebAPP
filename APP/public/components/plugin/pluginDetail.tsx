@@ -168,6 +168,7 @@ export default class PluginDetail extends Component<Props, State> {
                             <a href="#release-content" className="mdui-ripple">{translate("download")}</a>
                         </div>
                     </div>
+                    {/*TODO 修复错误的图片相对链接（将相对链接指向GitHub而非PNXHub）*/}
                     <div className="mdui-row" id="tab-introduction">
                         <div className="mdui-typo" dangerouslySetInnerHTML={{
                             __html: state?.renderedReadme ?? translate("loading")
@@ -217,6 +218,7 @@ export function ReleaseComponent(props: { pluginID: string, releaseDataBeans: Ar
     const [state, updater] = useState({});
     console.log("render", props)
     for (const releaseDataBean of props.releaseDataBeans) {
+        // TODO 多次渲染Markdown结果进行缓存，避免不必要的请求
         if (releaseDataBean && releaseDataBean.body && !state['renderedReadme_' + releaseDataBean.tagName]) {
             apiPostRaw<string>({
                 url: "/git/markdown/" + props.pluginID,
@@ -265,6 +267,7 @@ export function ReleaseComponent(props: { pluginID: string, releaseDataBeans: Ar
                                                     <TimeComponent time={artifact.createAt}/>
                                                     <FileSizeComponent size={artifact.sizeInBytes}/>
                                                 </div>
+                                                {/*TODO 优化下载按钮样式*/}
                                                 <a href={getApiURL() + "/download/" + artifact.downloadId} download>
                                                     <i className="mdui-list-item-icon mdui-icon material-icons">&#xe2c4;</i>
                                                 </a>
@@ -280,6 +283,8 @@ export function ReleaseComponent(props: { pluginID: string, releaseDataBeans: Ar
                     (() => {
                         if (props.releaseDataBeans.filter(value => value?.name).length !== 0) {
                             return (<>
+                                {/*TODO 使用LoadingDialog来提示用户正在加载*/}
+                                {/*TODO 如果一共只有一个发行版给出用户提示，不要让用户以为是加载失败*/}
                                 <div className="mdui-text-center">
                                     <a onClick={(e) => {
                                         props?.loadAllCallback();
@@ -294,6 +299,8 @@ export function ReleaseComponent(props: { pluginID: string, releaseDataBeans: Ar
             </div>
             <div className="mdui-typo">
                 {
+                    // TODO 在合适的时候显示正在加载
+                    // TODO 目前的实现方式会导致在加载完成之后仍然显示正在加载，所以目前什么也不显示
                     (() => {
                         if ((props.releaseDataBeans.length === 1 && props.releaseDataBeans[0]
                             && !props.releaseDataBeans[0].name)) {

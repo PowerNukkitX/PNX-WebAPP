@@ -244,6 +244,8 @@ class Hub extends Component<{ path: string }, {
                         <div>
                             <span>{translate("order")}</span>
                         </div>
+                        {/*TODO 保存用户的选择，退出重进后仍然可用*/}
+                        {/*TODO 在切换推荐方式后立即更新插件列表*/}
                         <select className="mdui-select" mdui-select="{position: 'bottom'}" onChange={event => {
                             const state = this.state;
                             state.updateQuery.sort = event.target['value'] as "recommend" | "lastUpdate" | "star";
@@ -252,6 +254,7 @@ class Hub extends Component<{ path: string }, {
                             <option value="lastUpdate">{translate("lastUpdate")}</option>
                             <option value="star">{translate("star")}</option>
                         </select>
+                        {/*TODO 在切换排序方式后立即更新插件列表*/}
                         <label className="mdui-switch">
                             <input type="checkbox" onClick={(event) => {
                                 const state = this.state;
@@ -264,6 +267,7 @@ class Hub extends Component<{ path: string }, {
                     </div>
                     <br/>
                     <div className="mdui-row">
+                        {/*TODO 把这里的加载条换为LoadingDialog*/}
                         <div className="mdui-progress" style={{
                             display: this.state.updating ? "block" : "none"
                         }}>
@@ -286,6 +290,7 @@ class Hub extends Component<{ path: string }, {
                                 onClick={() => this.turnPageDelta(-1)}>
                             <i className="mdui-icon material-icons">&#xe5dc;</i>
                         </button>
+                        {/*TODO 这里翻页的翻译漏掉了*/}
                         <button className="mdui-btn mdui-btn-raised"
                                 onClick={() => slideChooseDialog("翻页", this.currentPage, 1, this.maxPage, 1).then(page => {
                                     this.turnPageDelta(page - this.currentPage);

@@ -26,6 +26,7 @@ export default class PluginDrawer extends Component<{}, { mduiDrawer }> {
         this.setState({
             mduiDrawer: drawer
         });
+        // TODO 减少侧边栏误弹出的情况
         if (window.innerWidth > 1024) {
             drawer.open();
         } else if (location.href.endsWith("/hub/plugin/hub") || location.href.endsWith("/hub/plugin")) {

@@ -2,6 +2,7 @@
 import home from './style.module.css';
 import {translate} from "../../util/language";
 
+// TODO 在主页显示PNX的新闻和其他信息，目前实在是太简陋了
 export default function Home() {
     return (
         <>
