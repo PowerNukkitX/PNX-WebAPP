@@ -5,7 +5,7 @@ export function getCookie(name: string) {
     const match = document.cookie.match(reg);
     return match ? decodeURIComponent(match[2]) : null;
 }
-  
+
 
 // 设置cookie
 export function setCookie(name: string, value: any, days: number) {

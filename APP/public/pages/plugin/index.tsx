@@ -1,12 +1,12 @@
-import {PluginCard} from "../../components/plugin/pluginCard";
+import { PluginCard } from "../../components/plugin/pluginCard";
 import RepoDataBean from "../../data/RepoDataBean";
 import PluginDrawer from "../../components/plugin/pluginDrawer";
 import NotFound from "../_404";
-import {Router} from "preact-iso";
-import {translate} from "../../util/language";
-import {Component, JSX} from "preact";
+import { Router } from "preact-iso";
+import { translate } from "../../util/language";
+import { Component, JSX } from "preact";
 import MDUI from "../../util/mduiHelper";
-import {apiGetJson, getApiURL} from "../../util/apiUtil";
+import { apiGetJson, getApiURL } from "../../util/apiUtil";
 // @ts-ignore
 import * as style from "./style.module.css";
 import slideChooseDialog from "../../components/dialog/sliderChooseDialog";
@@ -15,12 +15,12 @@ import PluginDetail from "../../components/plugin/pluginDetail";
 export default function PluginHub() {
     return (
         <>
-            <PluginDrawer/>
+            <PluginDrawer />
             <Router>
-                <Hub path={"/"}/>
-                <Hub path={"/hub"}/>
+                <Hub path={"/"} />
+                <Hub path={"/hub"} />
                 <PluginDetail path={"/detail/*"}></PluginDetail>
-                <NotFound default={true}/>
+                <NotFound default={true} />
             </Router>
         </>
     )
@@ -73,7 +73,7 @@ class Hub extends Component<{ path: string }, {
     }
 
     shouldComponentUpdate(nextProps: Readonly<{ path: string }>,
-                          nextState: Readonly<{ updating: boolean; updatingProcess: number; errorReason: string; updateQuery: { from: number; size: number; sort: "recommend" | "lastUpdate" | "star"; order: "asc" | "desc"; keywords: string } }>, nextContext: any): boolean {
+        nextState: Readonly<{ updating: boolean; updatingProcess: number; errorReason: string; updateQuery: { from: number; size: number; sort: "recommend" | "lastUpdate" | "star"; order: "asc" | "desc"; keywords: string } }>, nextContext: any): boolean {
         if (this.state.updating || this.state.updating !== nextState.updating) {
             console.log("ture")
             return true;
@@ -159,7 +159,7 @@ class Hub extends Component<{ path: string }, {
     renderPluginCards(): void {
         this.pluginCards = [];
         for (const each of this.repoData) {
-            this.pluginCards.push(<PluginCard repo={each}/>)
+            this.pluginCards.push(<PluginCard repo={each} />)
         }
     }
 
@@ -234,7 +234,7 @@ class Hub extends Component<{ path: string }, {
                     <div className="mdui-row mdui-text-center">
                         <h1>{translate("plugin-hub")}</h1>
                     </div>
-                    <br/>
+                    <br />
                     <div className={"mdui-row " + style.pluginButtonBar}>
                         <button className="mdui-btn mdui-ripple" onClick={() => this.updatePlugins()}>
                             {/*Refresh*/}
@@ -251,15 +251,15 @@ class Hub extends Component<{ path: string }, {
                             state.updateQuery.sort = event.target['value'] as "recommend" | "lastUpdate" | "star";
                             // 写入到本地存储
                             const update = this.updatePlugins();
-                            if(update){
+                            if (update) {
                                 localStorage.setItem("pluginHubSort", state.updateQuery.sort);
-                            }else{
+                            } else {
                                 // 如果更新失败则恢复原来的排序方式
                                 this.state.updateQuery.sort = temp;
                                 console.log(event);
                                 // 重置选择框
                                 event.target['value'] = temp;
-                               // TODO: 目前无法重置选择框视图
+                                // TODO: 目前无法重置选择框视图
                                 return;
                             }
                         }}>
@@ -275,21 +275,21 @@ class Hub extends Component<{ path: string }, {
                                 state.updateQuery.order = event.target['checked'] ? "asc" : "desc";
                                 // 写入到本地存储
                                 localStorage.setItem("pluginHubOrder", state.updateQuery.order);
-                                if(this.updatePlugins()){
+                                if (this.updatePlugins()) {
                                     localStorage.setItem("pluginHubOrder", state.updateQuery.order);
-                                }else{
+                                } else {
                                     // 如果更新失败则恢复原来的排序方式
                                     this.state.updateQuery.order = temp;
                                     // 重置开关状态
                                     event.target['checked'] = !event.target['checked'];
                                     return;
                                 }
-                            }}/>
+                            }} />
                             <i className="mdui-switch-icon"></i>
                             <span>{translate("reverse-order")}</span>
                         </label>
                     </div>
-                    <br/>
+                    <br />
                     <div className="mdui-row">
                         {/*TODO 把这里的加载条换为LoadingDialog*/}
                         <div className="mdui-progress" style={{
@@ -302,41 +302,41 @@ class Hub extends Component<{ path: string }, {
                             }}></div>
                         </div>
                     </div>
-                    <br/>
+                    <br />
                     <div className={"mdui-row " + style.pluginList}>
                         {this.pluginCards}
                     </div>
-                    <br/>
+                    <br />
                     <div className={"mdui-row " + style.pluginButtonBar}>
                         {/*Page Up*/}
                         <button className="mdui-btn mdui-btn-icon"
-                                mdui-tooltip={`{content: '${translate("page-up")}'}`}
-                                onClick={() => this.turnPageDelta(-1)}>
+                            mdui-tooltip={`{content: '${translate("page-up")}'}`}
+                            onClick={() => this.turnPageDelta(-1)}>
                             <i className="mdui-icon material-icons">&#xe5dc;</i>
                         </button>
                         {/*TODO 这里翻页的翻译漏掉了*/}
                         <button className="mdui-btn mdui-btn-raised"
-                                onClick={() => slideChooseDialog("翻页", this.currentPage, 1, this.maxPage, 1).then(page => {
-                                    this.turnPageDelta(page - this.currentPage);
-                                }).catch(() => {
-                                    console.log("Canceled turn page.")
-                                })}
+                            onClick={() => slideChooseDialog("翻页", this.currentPage, 1, this.maxPage, 1).then(page => {
+                                this.turnPageDelta(page - this.currentPage);
+                            }).catch(() => {
+                                console.log("Canceled turn page.")
+                            })}
                         >{this.currentPage} / {this.maxPage}</button>
                         {/*Page Down*/}
                         <button className="mdui-btn mdui-btn-icon"
-                                mdui-tooltip={`{content: '${translate("page-down")}'}`}
-                                onClick={() => this.turnPageDelta(1)}>
+                            mdui-tooltip={`{content: '${translate("page-down")}'}`}
+                            onClick={() => this.turnPageDelta(1)}>
                             <i className="mdui-icon material-icons">&#xe5dd;</i>
                         </button>
                     </div>
-                    <br/>
+                    <br />
                 </div>
             </>
         )
     }
 
     componentDidUpdate(previousProps: Readonly<{ path: string }>,
-                       previousState: Readonly<{ updating: boolean; updatingProcess: number; errorReason: string; updateQuery: { from: number; size: number; sort: "recommend" | "lastUpdate" | "star"; order: "asc" | "desc"; keywords: string } }>, snapshot: any) {
+        previousState: Readonly<{ updating: boolean; updatingProcess: number; errorReason: string; updateQuery: { from: number; size: number; sort: "recommend" | "lastUpdate" | "star"; order: "asc" | "desc"; keywords: string } }>, snapshot: any) {
         MDUI.mutation("." + style.pluginButtonBar);
     }
 

@@ -1,7 +1,7 @@
 import MDUI from "../../util/mduiHelper";
-import {Component} from "preact";
-import {translate} from "../../util/language";
-import {useLocation} from "preact-iso";
+import { Component } from "preact";
+import { translate } from "../../util/language";
+import { useLocation } from "preact-iso";
 import { getCookie, setCookie } from "../../util/commonUtil";
 
 export default class PluginDrawer extends Component<{}, { mduiDrawer }> {
@@ -23,7 +23,7 @@ export default class PluginDrawer extends Component<{}, { mduiDrawer }> {
     }
 
     componentDidMount() {
-        const drawer = new MDUI.Drawer('#plugin-drawer', {swipe: true});
+        const drawer = new MDUI.Drawer('#plugin-drawer', { swipe: true });
         this.setState({
             mduiDrawer: drawer
         });
