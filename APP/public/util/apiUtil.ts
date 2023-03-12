@@ -1,5 +1,6 @@
 import MDUI from "./mduiHelper";
 import AjaxOptions from "mdui.jq/es/interfaces/AjaxOptions";
+import { DelayedReturnDataBean } from "../data/DelayedReturnDataBean";
 
 export function getApiURL(): string {
     if (window['apiURL']) {
@@ -54,6 +55,23 @@ export function apiPostJson<T>(options: AjaxOptions): Promise<T> {
     return new Promise<T>((resolve, reject) => {
         MDUI.$.ajax(options).then(data => {
             resolve(JSON.parse(data));
+        }).catch(reject);
+    });
+}
+
+export function apiDelayedReturn<T>(options: AjaxOptions): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+        apiGetJson<DelayedReturnDataBean>(options).then(data => {
+            const uuid = data.uuid;
+            // 轮询查询数据
+            const interval = setInterval(() => {
+                apiGetJson<T>({ url: "/delayed/query/" + uuid }).then(data => {
+                    if (data !== undefined) {
+                        clearInterval(interval);
+                        resolve(data);
+                    }
+                }).catch(reject);
+            }, 1000);
         }).catch(reject);
     });
 }

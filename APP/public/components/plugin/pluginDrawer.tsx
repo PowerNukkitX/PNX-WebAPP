@@ -36,6 +36,10 @@ export default class PluginDrawer extends Component<{}, { mduiDrawer }> {
                 drawer.open();
             }
             setCookie("f_T", new Date().getTime(), 7);
+        } else {
+            if (window.innerWidth > 1024) {
+                drawer.open();
+            }
         }
         drawer.$element.on('close.mdui.drawer', () => {
             if (window.innerWidth <= 1024) {
