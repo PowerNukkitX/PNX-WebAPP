@@ -1,18 +1,19 @@
 // noinspection HtmlUnknownAnchorTarget
 
-import {Component, createRef, RefObject, RenderableProps} from "preact";
+import { Component, createRef, RefObject, RenderableProps } from "preact";
 import RepoDataBean from "../../data/RepoDataBean";
 import MDUI from "../../util/mduiHelper";
-import {translate} from "../../util/language";
-import {apiGetJson, apiPostRaw, getApiURL} from "../../util/apiUtil";
-import {ReadmeDataBean} from "../../data/ReadmeDataBean";
-import {LanguageComponent, StarComponent, TimeComponent} from "./pluginCard";
+import { translate } from "../../util/language";
+import { apiGetJson, apiPostRaw, getApiURL } from "../../util/apiUtil";
+import { ReadmeDataBean } from "../../data/ReadmeDataBean";
+import { LanguageComponent, StarComponent, TimeComponent } from "./pluginCard";
 // @ts-ignore
 import * as style from "./pluginDetail.module.css";
 import ReleaseDataBean from "../../data/ReleaseDataBean";
-import {time2AgoString} from "../../util/timeUtil";
-import {useState} from "preact/compat";
-import {sizeToString} from "../../util/stringUtil";
+import { time2AgoString } from "../../util/timeUtil";
+import { useState } from "preact/compat";
+import { sizeToString } from "../../util/stringUtil";
+import { PluginDependencies } from "./pluginDependencies";
 
 interface Props {
     path: string
@@ -23,7 +24,8 @@ interface State {
     renderedReadme: string | null | undefined
     lastUpdateTime: Date | null | undefined
     releases: Array<ReleaseDataBean>
-    displayAllReleases: boolean
+    displayAllReleases: boolean,
+    tab: any
 }
 
 export default class PluginDetail extends Component<Props, State> {
@@ -36,8 +38,13 @@ export default class PluginDetail extends Component<Props, State> {
             renderedReadme: null,
             lastUpdateTime: null,
             releases: [],
-            displayAllReleases: false
+            displayAllReleases: false,
+            tab: null
         })
+    }
+
+    setDisplayTab(index: number) {
+        this.state.tab.show(index);
     }
 
     get pluginID(): string {
@@ -97,7 +104,6 @@ export default class PluginDetail extends Component<Props, State> {
                 }
             }
             if (displayAllReleases || this.state.displayAllReleases) {
-                console.log("display all releases");
                 if (!this.state.releases || this.state.releases.length <= 1 || force) {
                     const releaseData = await apiGetJson<Array<ReleaseDataBean>>({
                         url: "/git/all-releases/" + this.pluginID
@@ -125,12 +131,29 @@ export default class PluginDetail extends Component<Props, State> {
         }
     }
 
+    displayTab(index: number) {
+        if (this.state?.tab) {
+            this.state.tab.show(index);
+            // 重新渲染
+            this.setState({
+                ...this.state,
+                tab: this.state.tab
+            })
+        }
+    }
+
     render(props: RenderableProps<Props> | undefined, state: Readonly<State> | undefined) {
-        console.log("parent render")
+        // 渲染时检查tab
+        if (!state?.tab || state.tab.activeIndex === -1) {
+            const tab = new MDUI.Tab("#pluginDetailTab");
+            this.setState({
+                tab: tab
+            })
+        }
         return (
             <div className={style.detailContainer} ref={this.ref} id={Math.random().toString(36).substring(2)}>
                 <div className="mdui-container mdui-typo">
-                    <br/>
+                    <br />
                     <div className="mdui-row">
                         <button className="mdui-btn mdui-ripple icon-span-btn" onClick={() => history.back()}>
                             <i className="mdui-icon material-icons">&#xe5c4;</i>
@@ -150,43 +173,63 @@ export default class PluginDetail extends Component<Props, State> {
                             <span>{translate("refresh")}</span>
                         </button>
                     </div>
-                    <hr/>
+                    <hr />
                     <div className="mdui-row">
                         <div className="mdui-typo-display-1">
                             {state?.repoData?.name ?? translate("loading")}
                         </div>
                     </div>
                     <div className={"mdui-row mdui-valign " + style.noLeftPaddingValign}>
-                        <LanguageComponent language={state?.repoData?.mainLanguage ?? translate("loading")}/>
-                        <StarComponent star={state?.repoData?.star ?? translate("loading")}/>
-                        <TimeComponent time={state?.repoData?.lastUpdateAt ?? translate("loading")}/>
-                        <AuthorComponent author={state?.repoData?.owner ?? translate("loading")}/>
+                        <LanguageComponent language={state?.repoData?.mainLanguage ?? translate("loading")} />
+                        <StarComponent star={state?.repoData?.star ?? translate("loading")} />
+                        <TimeComponent time={state?.repoData?.lastUpdateAt ?? translate("loading")} />
+                        <AuthorComponent author={state?.repoData?.owner ?? translate("loading")} />
                     </div>
                     <div className="mdui-row">
-                        <div className="mdui-tab" mdui-tab>
-                            <a href="#tab-introduction" className="mdui-ripple">{translate("introduction")}</a>
-                            <a href="#release-content" className="mdui-ripple">{translate("download")}</a>
+                        <div id="pluginDetailTab" className="mdui-tab" mdui-tab>
+                            <a href="#tab-introduction" className="mdui-ripple" onClick={() => { this.displayTab(0) }}>{translate("introduction")}</a>
+                            <a href="#release-content" className="mdui-ripple" onClick={() => { this.displayTab(1) }}>{translate("download")}</a>
+                            <a href="#tab-dependencies" className="mdui-ripple" onClick={() => { this.displayTab(2) }}>{translate("dependencies")}</a>
                         </div>
                     </div>
                     {/*TODO 修复错误的图片相对链接（将相对链接指向GitHub而非PNXHub）*/}
-                    <div className="mdui-row" id="tab-introduction">
-                        <div className="mdui-typo" dangerouslySetInnerHTML={{
-                            __html: state?.renderedReadme ?? translate("loading")
-                        }}></div>
-                    </div>
-                    <div id="release-content" className="mdui-row mdui-typo">
-                        <br/>
-                        <div className="mdui-typo-title-opacity">{translate("release")}</div>
-                        <ReleaseComponent pluginID={this.pluginID} releaseDataBeans={state?.releases}
-                                          loadAllCallback={() => {
-                                              this.setState({
-                                                  displayAllReleases: true
-                                              });
-                                              this.updateInfo(false, true)
-                                          }}/>
-                    </div>
+                    {/*检查tab是否选中这个, 否则不渲染 */}
+                    {
+                        state?.tab?.activeIndex === 0 ?
+                            <div className="mdui-row" id="tab-introduction" >
+                                <div className="mdui-typo" dangerouslySetInnerHTML={{
+                                    __html: state?.renderedReadme ?? translate("loading")
+                                }}></div>
+                            </div>
+                            : <></>
+                    }
+                    {
+                        state?.tab?.activeIndex === 1 ?
+                            <div id="release-content" className="mdui-row mdui-typo">
+                                <br />
+                                <div className="mdui-typo-title-opacity">{translate("release")}</div>
+                                <ReleaseComponent pluginID={this.pluginID} releaseDataBeans={state?.releases}
+                                    loadAllCallback={() => {
+                                        this.setState({
+                                            displayAllReleases: true
+                                        });
+                                        this.updateInfo(false, true)
+                                    }} />
+                            </div>
+                            : <></>
+                    }
+                    {
+                        state?.tab?.activeIndex === 2 ?
+                            <div id="tab-dependencies" className="mdui-row mdui-typo">
+                                <br />
+                                <div className="mdui-typo-title-opacity">{translate("dependencies")}</div>
+                                <div id="render" />
+                                <PluginDependencies pluginName={this.state.repoData?.pluginName} />
+                            </div>
+                            : <></>
+                    }
                 </div>
-                <br/>
+                <br />
             </div>
         );
     }
@@ -254,7 +297,7 @@ export function ReleaseComponent(props: { pluginID: string, releaseDataBeans: Ar
                                 }}></div>
                                 <hr style={{
                                     display: releaseDataBean.body ? "block" : "none"
-                                }}/>
+                                }} />
                                 <ul className={"mdui-list " + style.downloadList} style={{
                                     paddingLeft: "0"
                                 }}>
@@ -264,8 +307,8 @@ export function ReleaseComponent(props: { pluginID: string, releaseDataBeans: Ar
                                             <li className="mdui-list-item mdui-ripple">
                                                 <div className="mdui-list-item-content mdui-valign">
                                                     <span className={style.fileName}>{artifact.name}</span>
-                                                    <TimeComponent time={artifact.createAt}/>
-                                                    <FileSizeComponent size={artifact.sizeInBytes}/>
+                                                    <TimeComponent time={artifact.createAt} />
+                                                    <FileSizeComponent size={artifact.sizeInBytes} />
                                                 </div>
                                                 {/*TODO 优化下载按钮样式*/}
                                                 <a href={getApiURL() + "/download/" + artifact.downloadId} download>

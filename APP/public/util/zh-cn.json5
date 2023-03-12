@@ -55,5 +55,6 @@
   "no-release": "此插件暂无发行版，请联系作者或尝试构建版。",
   "release": "发行版",
   "file-size": "文件大小",
-  "load-all-releases": "加载所有发行版"
+  "load-all-releases": "加载所有发行版",
+  "dependencies": "依赖",
 }

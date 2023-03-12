@@ -57,4 +57,5 @@
   "release": "Release",
   "file-size": "File size",
   "load-all-releases": "Load all releases",
+  "dependencies": "Dependencies",
 }
