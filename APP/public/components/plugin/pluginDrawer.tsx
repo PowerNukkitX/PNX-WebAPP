@@ -1,7 +1,8 @@
 import MDUI from "../../util/mduiHelper";
-import {Component} from "preact";
-import {translate} from "../../util/language";
-import {useLocation} from "preact-iso";
+import { Component } from "preact";
+import { translate } from "../../util/language";
+import { useLocation } from "preact-iso";
+import { getCookie, setCookie } from "../../util/commonUtil";
 
 export default class PluginDrawer extends Component<{}, { mduiDrawer }> {
 
@@ -22,15 +23,19 @@ export default class PluginDrawer extends Component<{}, { mduiDrawer }> {
     }
 
     componentDidMount() {
-        const drawer = new MDUI.Drawer('#plugin-drawer', {swipe: true});
+        const drawer = new MDUI.Drawer('#plugin-drawer', { swipe: true });
         this.setState({
             mduiDrawer: drawer
         });
-        // TODO 减少侧边栏误弹出的情况
-        if (window.innerWidth > 1024) {
-            drawer.open();
-        } else if (location.href.endsWith("/hub/plugin/hub") || location.href.endsWith("/hub/plugin")) {
-            drawer.open();
+        // 可通过设置第一次浏览cookie来解决
+        // @f_T: first time
+        if (getCookie("f_T") === null) {
+            if (window.innerWidth > 1024) {
+                drawer.open();
+            } else if (location.href.endsWith("/hub/plugin/hub") || location.href.endsWith("/hub/plugin")) {
+                drawer.open();
+            }
+            setCookie("f_T", new Date().getTime(), 7);
         }
         drawer.$element.on('close.mdui.drawer', () => {
             if (window.innerWidth <= 1024) {
