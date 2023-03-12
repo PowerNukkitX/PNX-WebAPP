@@ -25,6 +25,18 @@
 </html>
 <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/mdui/1.0.2/js/mdui.min.js"
         crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9/dist/mermaid.js"></script>
 <script type="module" src="./index.tsx"></script>
+<script>
+    mermaid.initialize({
+            startOnLoad: true
+        });
+    setInterval(function () {
+        // 渲染 mermaid 图表
+        mermaid.init(undefined, document.querySelectorAll(".mermaid"));
+        console.log("Mermaid Rendered");
+    }, 1000);
+
+    </script>
 <link rel="stylesheet" href="assets/css/github-light.less"/>
 <link rel="stylesheet" href="assets/css/github-dark.less"/>

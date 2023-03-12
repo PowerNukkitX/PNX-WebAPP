@@ -19,12 +19,12 @@ const MermaidDiagram: React.FC<MermaidDiagramProps> = ({ chart }) => {
     });
 
     if (loading) {
-      mermaid.render('render', chart).then(svgCode => {
-        // 修改字体大小为13px
-        svgCode.svg = svgCode.svg.replace(/font-size:16px/g, 'font-size:14px');
-        const graphDiv = document.getElementById('graphDiv');
-        graphDiv.innerHTML = svgCode.svg;
-      });
+      // mermaid.render('render', chart).then(svgCode => {
+      //   // 修改字体大小为13px
+      //   svgCode.svg = svgCode.svg.replace(/font-size:16px/g, 'font-size:14px');
+      //   const graphDiv = document.getElementById('graphDiv');
+      //   graphDiv.innerHTML = svgCode.svg;
+      // });
       setLoading(false);
     }
   }, [chart]);
@@ -32,8 +32,11 @@ const MermaidDiagram: React.FC<MermaidDiagramProps> = ({ chart }) => {
   if (loading) {
     return <div>Loading</div>;
   }
+  // 使用<script></script>标签渲染
+
   return (
-    <div id="graphDiv">
+    <div id="graphDiv" className={'mermaid'}>
+      {chart}
     </div>
   );
 };

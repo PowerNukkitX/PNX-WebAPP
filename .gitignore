@@ -3,3 +3,5 @@
 **/.gradle/
 **/build/
 /APP/.parcel-cache/
+/hub/
+/.vscode/
