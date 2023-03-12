@@ -132,7 +132,6 @@ export default class PluginDetail extends Component<Props, State> {
     }
 
     displayTab(index: number) {
-        console.log("display tab " + index);
         if (this.state?.tab) {
             this.state.tab.show(index);
             // 重新渲染
@@ -146,7 +145,7 @@ export default class PluginDetail extends Component<Props, State> {
     render(props: RenderableProps<Props> | undefined, state: Readonly<State> | undefined) {
         // 渲染时检查tab
         if (!state?.tab || state.tab.activeIndex === -1) {
-            const tab = new MDUI.Tab("#tab");
+            const tab = new MDUI.Tab("#pluginDetailTab");
             this.setState({
                 tab: tab
             })
@@ -187,7 +186,7 @@ export default class PluginDetail extends Component<Props, State> {
                         <AuthorComponent author={state?.repoData?.owner ?? translate("loading")} />
                     </div>
                     <div className="mdui-row">
-                        <div id="tab" className="mdui-tab" mdui-tab>
+                        <div id="pluginDetailTab" className="mdui-tab" mdui-tab>
                             <a href="#tab-introduction" className="mdui-ripple" onClick={() => { this.displayTab(0) }}>{translate("introduction")}</a>
                             <a href="#release-content" className="mdui-ripple" onClick={() => { this.displayTab(1) }}>{translate("download")}</a>
                             <a href="#tab-dependencies" className="mdui-ripple" onClick={() => { this.displayTab(2) }}>{translate("dependencies")}</a>
@@ -202,7 +201,7 @@ export default class PluginDetail extends Component<Props, State> {
                                     __html: state?.renderedReadme ?? translate("loading")
                                 }}></div>
                             </div>
-                            : null
+                            : <></>
                     }
                     {
                         state?.tab?.activeIndex === 1 ?
@@ -217,7 +216,7 @@ export default class PluginDetail extends Component<Props, State> {
                                         this.updateInfo(false, true)
                                     }} />
                             </div>
-                            : null
+                            : <></>
                     }
                     {
                         state?.tab?.activeIndex === 2 ?
@@ -227,7 +226,7 @@ export default class PluginDetail extends Component<Props, State> {
                                 <div id="render" />
                                 <PluginDependencies pluginName={this.state.repoData?.pluginName} />
                             </div>
-                            : null
+                            : <></>
                     }
                 </div>
                 <br />
