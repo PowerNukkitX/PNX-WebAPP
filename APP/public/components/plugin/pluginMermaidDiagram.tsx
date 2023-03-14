@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'preact/compat';
 import mermaid from 'mermaid';
 
 interface MermaidDiagramProps {
@@ -37,8 +37,5 @@ const MermaidDiagram: React.FC<MermaidDiagramProps> = ({ chart }) => {
     </div>
   );
 };
-
-
-
 
 export default MermaidDiagram;
