@@ -253,9 +253,9 @@ function parseCSV(csvString) {
 const egg_title1 = "🌌 PowerNukkitX"
 const egg_title2 = "Just an egg :D"
 const egg_content = `
-🏡 WebSite: https://www.powernukkitx.cn
+🏡 WebSite: https://www.powernukkitx.com
 📌 GitHub:  https://github.com/powernukkitx
-📖 Document: https://doc.powernukkitx.cn
+📖 Document: https://powernukkitx.com/doc
 ----------------------------------------
 🎉 Congratulations on finding this egg!
 🔧 Web Version: 1.0

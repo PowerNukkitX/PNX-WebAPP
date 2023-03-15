@@ -1,4 +1,6 @@
+
 import React from 'react';
+
 
 interface MermaidDiagramProps {
   chart: string;
@@ -18,8 +20,5 @@ const MermaidDiagram: React.FC<MermaidDiagramProps> = ({ chart }) => {
     </div>
   );
 };
-
-
-
 
 export default MermaidDiagram;

@@ -5,7 +5,11 @@
     var _hmt = _hmt || [];
     (function () {
         var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?7f37dd4b818e3b908b5844e5cd197a3a";
+        if (location.href.indexOf(".cn") !== -1) {
+            hm.src = "https://hm.baidu.com/hm.js?7f37dd4b818e3b908b5844e5cd197a3a";
+        } else {
+            hm.src = "https://hm.baidu.com/hm.js?bfbd7ddbb7c9c4e7dcfb2966a94c23fb";
+        }
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
     })();
@@ -32,7 +36,7 @@
     <div class="mdui-appbar mdui-color-theme">
         <div class="mdui-container">
             <div class="mdui-toolbar">
-                <a href="https://www.powernukkitx.cn" class="mdui-typo-headline icon-title">
+                <a href="https://www.powernukkitx.com" class="mdui-typo-headline icon-title">
                     <span class="icon-title-main">PN</span>
                     <span class="icon-title-sup">X</span>
                 </a>
@@ -49,7 +53,7 @@
                         </a>
                     </li>
                     <li class="mdui-menu-item">
-                        <a href="https://doc.powernukkitx.cn" class="mdui-ripple">
+                        <a href="https://powernukkitx.com/doc" class="mdui-ripple">
                             <i class="mdui-menu-item-icon mdui-icon material-icons">library_books</i>
                             <span translate="yes">more-menu.document</span>
                         </a>
@@ -77,7 +81,7 @@
     </div>
     <div class="mdui-row v-space-md"></div>
     <div class="link-btn-box">
-        <a href="https://doc.powernukkitx.cn" class="mdui-btn mdui-btn-raised mdui-ripple">
+        <a href="https://powernukkitx.com/doc" class="mdui-btn mdui-btn-raised mdui-ripple">
             <i class="mdui-menu-item-icon mdui-icon material-icons">library_books</i>
             <span translate="yes">more-menu.document</span>
         </a>

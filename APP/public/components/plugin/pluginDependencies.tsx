@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "preact/compat";
 import { apiDelayedReturn } from "../../util/apiUtil";
 import { DependenciesDataBean } from "../../data/DependenciesDataBean";
 
