@@ -3,40 +3,39 @@
 <!--suppress ES6ConvertVarToLetConst -->
 <script>
     var _hmt = _hmt || [];
-    (function () {
+    (function() {
         var hm = document.createElement("script");
         hm.src = "https://hm.baidu.com/hm.js?7f37dd4b818e3b908b5844e5cd197a3a";
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
+
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <title>PowerNukkitX Hub</title>
-    <meta name="description" content="PowerNukkitX Hub APP"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <link rel="icon" href="assets/image/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet"
-          href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/mdui/1.0.2/css/mdui.min.css"
-          crossorigin="anonymous"/>
-    <link rel="stylesheet" href="./style.css"/>
+    <meta name="description" content="PowerNukkitX Hub APP" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" href="assets/image/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/mdui/1.0.2/css/mdui.min.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="./style.css" />
 </head>
+
 <body class="mdui-theme-primary-indigo mdui-theme-accent-indigo mdui-appbar-with-toolbar light-theme"></body>
+
 </html>
-<script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/mdui/1.0.2/js/mdui.min.js"
-        crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/mermaid@9/dist/mermaid.js"></script>
+<script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/mdui/1.0.2/js/mdui.min.js" crossorigin="anonymous"></script>
+<script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.11.0/mermaid.min.js"></script>
 <script type="module" src="./index.tsx"></script>
 <script>
     mermaid.initialize({
-            startOnLoad: true
-        });
-    setInterval(function () {
+        startOnLoad: true
+    });
+    setInterval(function() {
         // 渲染 mermaid 图表
+        // 只输出svg
         mermaid.init(undefined, document.querySelectorAll(".mermaid"));
-        console.log("Mermaid Rendered");
     }, 1000);
-
-    </script>
-<link rel="stylesheet" href="assets/css/github-light.less"/>
-<link rel="stylesheet" href="assets/css/github-dark.less"/>
+</script>
+<link rel="stylesheet" href="assets/css/github-light.less" />
+<link rel="stylesheet" href="assets/css/github-dark.less" />
