@@ -133,6 +133,8 @@ export default class PluginDetail extends Component<Props, State> {
 
     displayTab(index: number) {
         if (this.state?.tab) {
+            // 忽略重复点击
+            if (this.state.tab.activeIndex === index) return;
             this.state.tab.show(index);
             // 重新渲染
             this.setState({
