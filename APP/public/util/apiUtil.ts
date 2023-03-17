@@ -71,7 +71,7 @@ export function apiDelayedReturn<T>(options: AjaxOptions): Promise<T> {
                         resolve(data);
                     }
                 }).catch(reject);
-            }, 1000);
+            }, 500);
         }).catch(reject);
     });
 }

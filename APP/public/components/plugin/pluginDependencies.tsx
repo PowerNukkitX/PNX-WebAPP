@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "preact/compat";
 import { apiDelayedReturn } from "../../util/apiUtil";
 import { DependenciesDataBean } from "../../data/DependenciesDataBean";
+import { translate } from "../../util/language";
 
 export function PluginDependencies(props: { pluginName: string }) {
     if (props.pluginName) {
@@ -19,20 +20,27 @@ export function PluginDependencies(props: { pluginName: string }) {
             }
             // 等待MermaidDiagram渲染完成
             return (
-                <div id="graphDiv" className={'mermaid'}>
-      {dependencies.mermaid}
-    </div>
+                <div id="graphDiv" className={'mermaid'} style={{
+                    opacity: 0,
+                }}>
+                    {(() => {
+                        setTimeout(() => {
+                            window['renderMermaid'](".mermaid");
+                            (document.querySelector(".mermaid") as HTMLDivElement).style.opacity = "1";
+                        }, 50);
+                        return dependencies.mermaid
+                    })()}
+                </div>
             );
         }
-        return <div>Loading</div>
+        return <div>{translate("loading")}</div>
     }
 
 }
 
 // 请求插件依赖关系图
 const getPluginDependencies = async (pluginName: string) => {
-    const readmeData = await apiDelayedReturn<DependenciesDataBean>({
+    return await apiDelayedReturn<DependenciesDataBean>({
         url: "/plugin/dependency-graph/" + pluginName,
     });
-    return readmeData;
 }

@@ -31,11 +31,9 @@
     mermaid.initialize({
         startOnLoad: true
     });
-    setInterval(function() {
-        // 渲染 mermaid 图表
-        // 只输出svg
-        mermaid.init(undefined, document.querySelectorAll(".mermaid"));
-    }, 1000);
+    window.renderMermaid = function (selector) {
+        mermaid.init(undefined, document.querySelectorAll(selector));
+    }
 </script>
 <link rel="stylesheet" href="assets/css/github-light.less" />
 <link rel="stylesheet" href="assets/css/github-dark.less" />
