@@ -19,7 +19,7 @@ interface Translators {
     translate(key: string): string;
 }
 
-const translators = [
+const translators: Translators[] = [
     {
         match: (key: string) => key.startsWith("route:/hub/plugin/detail/"),
         translate: (key: string) => {
