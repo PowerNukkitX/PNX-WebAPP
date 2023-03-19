@@ -1,0 +1,25 @@
+.loadingBox {
+    margin-top: 48px;
+    margin-bottom: 48px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.loadingSpin {
+    margin-right: 24px;
+    width: 36px;
+    height: 36px;
+    margin-left: 48px;
+}
+
+.loadingFailedIcon {
+    margin-right: 24px;
+    width: 36px;
+    height: 36px;
+    margin-left: 48px;
+    font-size: 36px;
+    opacity: 0.54;
+}

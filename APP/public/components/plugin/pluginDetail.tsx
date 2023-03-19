@@ -14,6 +14,7 @@ import { time2AgoString } from "../../util/timeUtil";
 import { useState } from "preact/compat";
 import { sizeToString } from "../../util/stringUtil";
 import { PluginDependencies } from "./pluginDependencies";
+import loadingDialog from "../dialog/loadingDialog";
 
 interface Props {
     path: string
@@ -78,9 +79,11 @@ export default class PluginDetail extends Component<Props, State> {
         }
         try {
             if (!this.state.repoData || force) {
-                const repoData = await apiGetJson<RepoDataBean>({
+                const responsePromise = apiGetJson<RepoDataBean>({
                     url: "/plugin/get/" + this.pluginID
                 });
+                loadingDialog(responsePromise, translate("plugin-info"))
+                const repoData = await responsePromise;
                 this.setState({
                     repoData: repoData
                 })
@@ -90,12 +93,14 @@ export default class PluginDetail extends Component<Props, State> {
                     url: "/git/readme/" + this.pluginID
                 });
                 if ("Markdown" === readmeData.format) {
+                    const responsePromise = apiPostRaw<string>({
+                        url: "/git/markdown/" + this.pluginID,
+                        contentType: "text/plain",
+                        data: readmeData.content
+                    });
+                    loadingDialog(responsePromise, translate("plugin-description"));
                     this.setState({
-                        renderedReadme: await apiPostRaw<string>({
-                            url: "/git/markdown/" + this.pluginID,
-                            contentType: "text/plain",
-                            data: readmeData.content
-                        })
+                        renderedReadme: await responsePromise
                     })
                 } else {
                     this.setState({
@@ -221,7 +226,7 @@ export default class PluginDetail extends Component<Props, State> {
                                                       this.setState({
                                                           displayAllReleases: true
                                                       });
-                                                      this.updateInfo(false, true)
+                                                      return this.updateInfo(false, true)
                                                   }}/>
                             </div>
                             : <></>
@@ -265,7 +270,7 @@ function copyJsonObj<T>(obj: T): T {
     return JSON.parse(JSON.stringify(obj));
 }
 
-export class ReleaseComponent extends Component<{ pluginID: string, releaseDataBeans: Array<ReleaseDataBean>, loadAllCallback?: () => void | undefined }> {
+export class ReleaseComponent extends Component<{ pluginID: string, releaseDataBeans: Array<ReleaseDataBean>, loadAllCallback?: () => Promise<any> | null | undefined }> {
     render() {
         const [state, updater] = useState({});
         console.log("render", this.props)
@@ -339,7 +344,7 @@ export class ReleaseComponent extends Component<{ pluginID: string, releaseDataB
                                     {/*TODO 如果一共只有一个发行版给出用户提示，不要让用户以为是加载失败*/}
                                     <div className="mdui-text-center">
                                         <a onClick={(e) => {
-                                            this.props?.loadAllCallback();
+                                            loadingDialog(this.props?.loadAllCallback(), translate("release-list"));
                                             (e.target as HTMLAnchorElement).style.display = "none";
                                         }} className={style.centerActionLink}>{translate("load-all-releases")}</a>
                                     </div>

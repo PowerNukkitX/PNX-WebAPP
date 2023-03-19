@@ -5,8 +5,10 @@
   "ok": "确定",
   "close": "关闭",
   "loading": "正在加载...",
+  "loading-sth": "正在加载{0}...",
   "back": "返回",
   "switch-theme": "切换主题",
+  "loading-failed": "加载失败，请稍后再试",
   // 404页
   "page-gone": "啊哦，页面不见了 :(",
   // 路由
@@ -28,6 +30,11 @@
       |我们的成员主要来自中国，同时也遍布世界各地。\
       |我们希望能够将PNX打造为基岩版最好的服务端软件之一，希望能够将PNX打造为下一代基岩版开发平台。",
   // Plugin Hub
+  "plugin-list": "插件列表",
+  "plugin-info": "插件信息",
+  "plugin-description": "插件介绍",
+  "release-list": "发行版列表",
+  "dependency-graph": "依赖图",
   "this-plugin-has-no-description": "此插件暂无描述。",
   "years-ago": "年前",
   "months-ago": "月前",

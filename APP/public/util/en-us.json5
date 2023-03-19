@@ -5,6 +5,8 @@
   "ok": "OK",
   "close": "Close",
   "loading": "Loading...",
+  "loading-sth": "loading {0} ...",
+  "loading-failed": "Loading failed. Please try again later.",
   "back": "Back",
   "switch-theme": "Switch theme",
   "page-gone": "Oops, this page is gone :(",
@@ -29,6 +31,11 @@
       | We hope to build PNX as one of the best server software of the bedrock version,\
       | and we hope to build PNX as the next generation development platform of Minecraft:Bedrock.",
   // Plugin Hub
+  "plugin-list": "plugin list",
+  "plugin-info": "plugin info",
+  "plugin-description": "plugin description",
+  "release-list": "release list",
+  "dependency-graph": "dependency graph",
   "this-plugin-has-no-description": "This plugin has no description.",
   "years-ago": "years ago",
   "months-ago": "months ago",

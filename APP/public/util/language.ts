@@ -32,7 +32,7 @@ const translators = [
     }
 ];
 
-export function translate(key: string): string {
+export function translate(key: string, ...args: string[]): string {
     key = key.trim();
     for (const translator of translators) {
         if (translator.match(key)) {
@@ -40,9 +40,21 @@ export function translate(key: string): string {
         }
     }
     if (languageId === "zh-cn") {
-        const tmp = getLanguageMap("zh-cn")[key];
-        return trimMultiLineString(tmp ?? key);
+        let tmp = getLanguageMap("zh-cn")[key];
+        tmp = trimMultiLineString(tmp ?? key);
+        if (args.length > 0) {
+            for (let i = 0; i < args.length; i++) {
+                tmp = tmp.replace("{" + i + "}", args[i]);
+            }
+        }
+        return tmp;
     }
-    const tmp = getLanguageMap("en-us")[key];
-    return trimMultiLineString(tmp ?? key);
+    let tmp = getLanguageMap("en-us")[key];
+    tmp = trimMultiLineString(tmp ?? key);
+    if (args.length > 0) {
+        for (let i = 0; i < args.length; i++) {
+            tmp = tmp.replace("{" + i + "}", args[i]);
+        }
+    }
+    return tmp;
 }

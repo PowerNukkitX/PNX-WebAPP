@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "preact/compat";
 import { apiDelayedReturn } from "../../util/apiUtil";
 import { DependenciesDataBean } from "../../data/DependenciesDataBean";
 import { translate } from "../../util/language";
+import loadingDialog from "../dialog/loadingDialog";
 
 export function PluginDependencies(props: { pluginName: string }) {
     if (props.pluginName) {
         const [dependencies, setDependencies] = useState<DependenciesDataBean>(null);
         useEffect(() => {
-            getPluginDependencies(props.pluginName).then((data) => {
+            const promise = getPluginDependencies(props.pluginName);
+            loadingDialog(promise, translate("dependency-graph"));
+            promise.then((data) => {
                 setDependencies(data);
             });
         }, [props.pluginName]);
