@@ -18,6 +18,7 @@ const eng = {
     "logo-des-8": "Multi-world supported ",
     "logo-des-9": "Epic world generator within ",
     "link.source-code": "Source Code",
+    "link.plugin": "PNX Plugin",
 
     "text.why-choose-pnx": "Why choose PNX?",
     "text.servers-choice": "Many servers' choice",
