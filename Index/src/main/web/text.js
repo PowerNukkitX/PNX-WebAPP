@@ -63,6 +63,10 @@ const eng = {
     "text.awesome-pnx": "Awesome PNX",
     "pnx.awesome.more": "Find more...",
     "pnx.awesome.click-to-see-more": "Click to see more about PNX",
+
+    "text.partners": "Partners",
+    "text.winheberg": "WinHeberg",
+    "text.winheberg-bio": "Your Minecraft Bedrock server host",
 }
 const chn = {
     "wip.main": "此功能正在开发中",
@@ -129,4 +133,8 @@ const chn = {
     "text.awesome-pnx": "发现PNX",
     "pnx.awesome.more": "发现更多",
     "pnx.awesome.click-to-see-more": "点击查看更多关于PNX的内容",
+
+    "text.partners": "合作伙伴",
+    "text.winheberg": "WinHeberg",
+    "text.winheberg-bio": "您的私人游戏服务器提供商",
 }
