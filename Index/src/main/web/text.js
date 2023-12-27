@@ -46,7 +46,7 @@ const eng = {
 
     "text.massive-plugins": "Massive plugins",
     "text.massive-plugins.description": "Thousands of plugins for you to choose",
-    "text.massive-plugins.content": "PNX retains good plugin compatibility while adding many vanilla features, and can directly run Java plugins written targeting nukkitx and PowerMockito. In addition, PNX also implements the JSAPI of LiteLoader based on the built-in JS engine, which enables LLSE plugins to run on PNX with only a few changes.",
+    "text.massive-plugins.content": "PNX retains good plugin compatibility while adding many vanilla features, and can directly run Java plugins written targeting NukkitX and PowerNukkit. In addition, PNX also implements the JSAPI of LiteLoader based on the built-in JS engine, which enables LLSE plugins to run on PNX with only a few changes.",
 
     "text.vanilla-command": "Vanilla command",
     "text.vanilla-command.description": "Vanilla command & command blocks",
